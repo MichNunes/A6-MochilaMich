@@ -1,2 +1,1 @@
-# A6-MochilaMich
-Arquivos aula 6.
+Minha mochilinha :D
