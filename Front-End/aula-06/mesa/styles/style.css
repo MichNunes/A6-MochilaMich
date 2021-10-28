@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css?family=Material+Icons%7CMaterial+Icons+Outlined%7CMaterial+Icons+Two+Tone%7CMaterial+Icons+Round%7CMaterial+Icons+Sharp%27');
+
+body {
+
+    background-color: rgb(0, 0, 0)
+
+}
+
+h1 {
+
+    color: white;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.media-picture {
+
+    background-image: url('http://www.osmais.com/wallpapers/201201/0b66127bd7-1680x1050.jpg');
+    height: 500px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+
+.review-score  {
+
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    background-color: rgb(238, 102, 186);
+    padding: 12px;
+    border-radius: 5px;
+
+}
+
+h2 {
+
+color:rgb(90, 193, 228);
+font-family: 'Roboto', sans-serif;
+
+}
+
+p {
+
+    color: white;
+
+}
+
+a {
+
+    color: yellow;
+    font-style: italic;
+
+}
