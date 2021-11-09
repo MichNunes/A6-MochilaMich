@@ -1,0 +1,71 @@
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+main{
+
+    height: 5000px;
+
+}
+
+.caixa {
+
+    width: 200px;
+    height: 200px;
+    background-color: silver;
+    padding: 24px;
+
+}
+
+.caixa-interna {
+
+    width: 100%;
+    height: 100%;
+    background-color: skyblue;
+    text-align: center;
+
+}
+
+.caixa2 {
+
+    width: 200px;
+    height: 200px;
+    background-color: silver;
+    padding: 24px;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+}
+
+.caixa-interna2 {
+
+    width: 100%;
+    height: 100%;
+    background-color: skyblue;
+    text-align: center;
+}
+
+.caixa3 {
+
+    width: 200px;
+    height: 200px;
+    background-color: silver;
+    padding: 24px;
+    position: fixed;
+    bottom: 0;
+    left: 45%
+
+}
+
+.caixa-interna3 {
+
+    width: 100%;
+    height: 100%;
+    background-color: skyblue;
+    text-align: center;
+}

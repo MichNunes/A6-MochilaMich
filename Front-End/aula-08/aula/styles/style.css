@@ -1,0 +1,54 @@
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+header {
+
+background-color: darkgreen;
+width: 100%;
+position: fixed;
+z-index: 20;
+text-align: center;
+
+}
+
+main{
+
+    height: 2000px;
+
+}
+
+.square {
+
+    width: 200px;
+    height: 200px;
+
+}
+
+.first {
+
+    background-color:red;
+    top: 0;
+
+}
+
+.second {
+
+    background-color: blue;
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    bottom: 24px;
+    right: 24px;
+
+}
+
+.third {
+
+    background-color: cyan;
+    position: relative;
+}
