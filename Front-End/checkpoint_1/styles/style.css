@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Yuji+Boku&display=swap');
+
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+#corpo {
+
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 2000px;
+    height: 1080px;
+
+}
+
+#cabecalho {
+
+    position: fixed;
+    width: 100%;
+    z-index: 20;
+
+}
+
+
+#titulo {
+
+    background-image: linear-gradient(to top , rgba(243, 144, 74, 0.904), rgb(5, 124, 118));
+    text-align: center;
+    color: black;
+    padding: 20px;
+    font-family: "Yuji Boku", sans-serif;
+
+}
+
+#resumo {
+
+    font-family: "Roboto", sans-serif;
+    padding: 18px;
+    background-color: white;
+    text-align: center;
+
+}
+
+iframe {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    padding: 35px;
+
+}
+
+#principal {
+
+    font-family: "Roboto", sans-serif;
+    color: black;
+    background-color: white;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 85%;
+
+}
