@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Pirata Flix</title>
+
+  </head>
+  <body>
+
+    <header class="main-header">
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+          <div class="container-fluid">
+
+            <a class="navbar-brand pirata" href="../main/index.html">PIRATA FLIX</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+            <div class="collapse navbar-collapse header-href" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+               
+                <div class="header-items">
+
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#">Home</a>
+                  </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="#filmes">Filmes</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="#sobre-nos">Sobre nós</a>
+                </li>
+
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../login/index.html">Login</a>
+                </li>
+                
+                </div>
+              </ul>
+            </div>
+
+
+          </div>
+        </nav>
+  </header>
+
+    <section> 
+      <div class="img">
+        <div class="banner-div">
+
+          <div>
+            <h1>Pirata Flix</h1>
+            <p>Assista gratuitamente na maior plataforma de streaming sem assinatura!</p>
+          </div>
+
+          <div>
+            <a href="https://www.instagram.com/netflixbrasil/?hl=pt-br"><button class="rounded mx-auto d-block">Explore mais</button></a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <main class="container main-content">
+      <section class="row section-items" id="filmes">
+
+        <div class="col-12 x-title">
+          <h1>Tenha acesso a <em>Filmes/Séries</em> como:</h1>
+        </div>
+          
+        <ul class="col-4 main-items">
+          <li>
+
+            <div class="main-item-image">
+              <img src="data:image/jpeg;base64,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">
+            </div>
+
+            <div>
+              
+              <div class="item-text item-title">
+                <h1>Joker</h1>
+                <p>Palhaço depressivo legaliza anarquia em Gotham.</p>
+              </div>
+
+              <div class="item-buttom">
+                <a href="../joker/index.html"><button>Veja mais</button></a>
+              </div>
+
+            </div>
+          </li>
+        </ul>
+  
+        <ul class="col-4 main-items">
+          <li>
+            <div class="main-item-image">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRohoGQ_I7vLwtalb4iba8_56ZSMQG6o_5owA&usqp=CAU">
+            </div>
+
+            <div>
+
+              <div class="item-text item-title">
+                <h1>Interestelar</h1>
+                <p>Uma equipe de exploradores viaja por um buraco de minhoca no espaço na tentativa de garantir a sobrevivência da humanidade.</p>
+              </div>
+
+              <div class="item-buttom">
+                <a href="../interestelar/index.html"><button>Veja mais</button></a>
+              </div>
+
+            </div>
+          </li>
+        </ul>
+
+        <ul class="col-4 main-items">
+          <li>
+            <div class="main-item-image">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuqfGzL-BBRQKmt9TQ8N-6gmSAA75jN7IKRA&usqp=CAU">
+            </div>
+
+            <div>
+
+              <div class="item-text item-title">
+                <h1>Infidelidade</h1>
+                <p>O casamento de um casal suburbano de Nova York dá errado quando a esposa se entrega a um caso de adultério.</p>
+              </div>
+
+              <div class="item-buttom">
+                <a href="../infidelidade/index.html"><button>Veja mais</button></a>
+              </div>
+
+            </div>
+          </li>
+        </ul>
+
+        <ul class="col-4 main-items">
+          <li>
+            <div class="main-item-image">
+              <img src="https://static.wixstatic.com/media/243f40_7e5021fdfa9d494d9ef89dee9d07173f~mv2.jpg/v1/fill/w_800,h_445,al_c,q_90/243f40_7e5021fdfa9d494d9ef89dee9d07173f~mv2.jpg">
+            </div>
+
+            <div>
+
+              <div class="item-text item-title">
+                <h1>Eternal Sunshine</h1>
+                <p>Quando sua relaçao se volta complicada, um casal tenta um procedimento médico para que suas memorias sejam apagadas.</p>
+              </div>
+
+              <div class="item-buttom">
+                <a href="../Eternal Sunshine/index.html"><button>Veja mais</button></a>
+              </div>
+
+            </div>
+          </li>
+        </ul>
+
+        <ul class="col-4 main-items">
+          <li>
+            <div class="main-item-image">
+              <img src="https://miro.medium.com/max/2560/1*CE3Gm8ZJGl4t_Ud3zUFkCQ.jpeg">
+            </div>
+
+            <div>
+
+              <div class="item-text item-title">
+                <h1>Lobo de Wall Street</h1>
+                <p>Baseada na verdadeira história de Jordan Belfort, desde sua ascensão como corretor de valores até a sua queda e envolvimento no crime e corrupção com o governo.</p>
+              </div>
+
+              <div class="item-buttom">
+                <a href="../Lobo de Wall Street/index.html"><button>Veja mais</button></a>
+              </div>
+
+            </div>
+          </li>
+        </ul>
+
+        <ul class="col-4 main-items">
+          <li>
+            <div class="main-item-image">
+              <img src="https://teg6.com/wp-content/uploads/2021/09/O-trailer-de-Matrix-Resurrections-esta-finalmente-aqui.jpeg">
+            </div>
+
+            <div>
+
+              <div class="item-text item-title">
+                <h1>Matrix</h1>
+                <p>Quando um lindo estranho leva o hacker de computador Neo a um submundo proibitivo, ele descobre a verdade chocante - a vida que ele conhece é o engano elaborado de uma inteligência cibernética do mal.</p>
+              </div>
+
+              <div class="item-buttom">
+                <a href="../Matrix/index.html"><button>Veja mais</button></a>
+              </div>
+
+            </div>
+          </li>
+        </ul>
+  
+        </section>
+
+      <div class="register">
+
+        <div>
+          <p>Cadastre-se e baixe <em>agora mesmo!</em></p>
+        </div>
+
+        <div class="register-button">
+          <button>Cadastro</button>
+        </div>
+      </div>
+
+    </main>
+
+    <footer id="sobre-nos">
+      <div class="row">
+        <div class="col-4 footer-card">
+          <h1>Michel Nunes</h1>
+          <h2>Aluno DH</h2>
+          <a href="https://github.com/MichNunes">
+            <img src="https://cdn-icons-png.flaticon.com/512/779/779088.png" alt=""  class="icone">
+          </a>
+        </div>
+
+        <div class="col-4 footer-card">
+          <h1>João Victor</h1>
+          <h2>Aluno DH</h2>
+          <a href="https://github.com/Vjoaoa">
+            <img src="https://cdn-icons-png.flaticon.com/512/779/779088.png" alt=""  class="icone">
+          </a>
+        </div>
+
+        <div class="col-4 footer-card">
+          <h1>Vinicius Evandro</h1>
+          <h2>Aluno DH</h2>
+          <a href="https://github.com/vini-bolado">
+          <img src="https://cdn-icons-png.flaticon.com/512/779/779088.png" alt=""  class="icone">
+          </a>
+        </div>
+      
+      </div>
+    </footer>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </body>
+</html>
