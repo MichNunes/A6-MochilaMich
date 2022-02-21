@@ -6,9 +6,9 @@ A atividade consiste em realizar a correção dos erros utilizando a ferramenta 
 
 Os alunos deverão se reunir em dupla, e buscar e corrigir os erros presentes no projeto. Existem errors de sintaxe, links quebrados e type error.
 
-- [ ] Corrigir errors de link quebrado
-- [ ] Corrigir SintaxeError
-- [ ] Corrigir TypeError
+- [x] Corrigir errors de link quebrado
+- [x] Corrigir SintaxeError
+- [x] Corrigir TypeError
 
 ## 2. Entrega
 
