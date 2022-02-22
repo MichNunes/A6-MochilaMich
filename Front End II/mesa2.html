@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+
+    var NomeDoUsuario = prompt("Digite seu nome completo!");
+
+    if(NomeDoUsuario.length === 0){
+        alert("É obrigatório preencher o nome completo!");
+        NomeDoUsuario = prompt("Digite seu nome completo!");
+    }
+
+    var TelefoneDoUsuario = prompt("Digite seu telefone");
+
+    if(TelefoneDoUsuario.length === 0){
+        alert("É obrigatório preencher o telefone!");
+        TelefoneDoUsuario = prompt("Digite seu telefone!");
+    }
+
+    var WhatsAppUsuario = confirm("Este telefone é WhatsApp?");
+
+    alert(`Muito obrigado ${NomeDoUsuario}, um de nossos consultores entrará em contato contigo através do número ${TelefoneDoUsuario}.`)
+
+    console.log(NomeDoUsuario)
+    console.log(TelefoneDoUsuario)
+    console.log(`WhatsApp: ${WhatsAppUsuario}`)
+
+</script>
+</body>
+</html>
