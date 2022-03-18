@@ -22,42 +22,6 @@ documento.addEventListener("keydown", (tecla) => {
     } else {console.log("Pressione ESPAÇO para iniciar o jogo ou ESCAPE para sair do jogo!")}
 })
 
-// var l1c1 = document.querySelector("#linha-1_coluna-1");
-// l1c1.addEventListener("click", (evento) => evento.target.innerText = "X" );
-// l1c1.addEventListener("dblclick", (evento) => evento.target.innerText = "O" ); 
-
-// var l1c2 = document.querySelector("#linha-1_coluna-2");
-// l1c2.addEventListener("click", (evento) => evento.target.innerText = "X" );
-// l1c2.addEventListener("dblclick", (evento) => evento.target.innerText = "O" );
-
-// var l1c3 = document.querySelector("#linha-1_coluna-3");
-// l1c3.addEventListener("click", (evento) => evento.target.innerText = "X" );
-// l1c3.addEventListener("dblclick", (evento) => evento.target.innerText = "O" );
-
-// var l2c1 = document.querySelector("#linha-2_coluna-1");
-// l2c1.addEventListener("click", (evento) => evento.target.innerText = "X" );
-// l2c1.addEventListener("dblclick", (evento) => evento.target.innerText = "O" );
-
-// var l2c2 = document.querySelector("#linha-2_coluna-2");
-// l2c2.addEventListener("click", (evento) => evento.target.innerText = "X" );
-// l2c2.addEventListener("dblclick", (evento) => evento.target.innerText = "O" );
-
-// var l2c3 = document.querySelector("#linha-2_coluna-3");
-// l2c3.addEventListener("click", (evento) => evento.target.innerText = "X" );
-// l2c3.addEventListener("dblclick", (evento) => evento.target.innerText = "O" );
-
-// var l3c1 = document.querySelector("#linha-3_coluna-1");
-// l3c1.addEventListener("click", (evento) => evento.target.innerText = "X" );
-// l3c1.addEventListener("dblclick", (evento) => evento.target.innerText = "O" );
-
-// var l3c2 = document.querySelector("#linha-3_coluna-2");
-// l3c2.addEventListener("click", (evento) => evento.target.innerText = "X" );
-// l3c2.addEventListener("dblclick", (evento) => evento.target.innerText = "O" );
-
-// var l3c3 = document.querySelector("#linha-3_coluna-3");
-// l3c3.addEventListener("click", (evento) => evento.target.innerText = "X" );
-// l3c3.addEventListener("dblclick", (evento) => evento.target.innerText = "O" );
-
 var botao = document.querySelector('.botao')
 botao.addEventListener("click", (evento) => {
     zerarDados(); 
@@ -68,6 +32,29 @@ botao.addEventListener("click", (evento) => {
 lc = ['linha-1_coluna-1', 'linha-1_coluna-2', 'linha-1_coluna-3', 'linha-2_coluna-1', 'linha-2_coluna-2', 'linha-2_coluna-3', 'linha-3_coluna-1', 'linha-3_coluna-2', 'linha-3_coluna-3']
 function zerarDados() {
     if (!!document.getElementById('telaInicial') === true) {
+        var l1c1 = document.getElementById("linha-1_coluna-1");
+    var l1c2 = document.getElementById("linha-1_coluna-2");
+    var l1c3 = document.getElementById("linha-1_coluna-3");
+    var l2c1 = document.getElementById("linha-2_coluna-1");
+    var l2c2 = document.getElementById("linha-2_coluna-2");
+    var l2c3 = document.getElementById("linha-2_coluna-3");
+    var l3c1 = document.getElementById("linha-3_coluna-1");
+    var l3c2 = document.getElementById("linha-3_coluna-2");
+    var l3c3 = document.getElementById("linha-3_coluna-3");
+
+        function removeBackgroundColor() {
+            l1c1.style.backgroundColor = "";
+            l1c2.style.backgroundColor = "";
+            l1c3.style.backgroundColor = "";
+            l2c1.style.backgroundColor = "";
+            l2c2.style.backgroundColor = "";
+            l2c3.style.backgroundColor = "";
+            l3c1.style.backgroundColor = "";
+            l3c2.style.backgroundColor = "";
+            l3c3.style.backgroundColor = "";
+    
+        }
+        removeBackgroundColor()
     var aux = "";
     lc.forEach(element => {
         var aux2 = document.getElementById(element);
@@ -82,6 +69,8 @@ function zerarDados() {
 
 
 var tabuleiro = document.querySelector(".tabuleiro");
+
+console.log(tabuleiro.childNodes[1])
 
 var aux = tabuleiro.addEventListener('click', function clickEvento(evento) {
     evento.target.innerText = "X";
@@ -103,7 +92,20 @@ var aux2 = tabuleiro.addEventListener('dblclick', function dblclickEvento(evento
 
 
 
-var aux3 = tabuleiro.addEventListener('dblclick', function vitoriaO(evento) {
+var aux3 = tabuleiro.addEventListener('click', function vitoriaX(evento) {
+    function removeBackgroundColor() {
+        l1c1.style.backgroundColor = "";
+        l1c2.style.backgroundColor = "";
+        l1c3.style.backgroundColor = "";
+        l2c1.style.backgroundColor = "";
+        l2c2.style.backgroundColor = "";
+        l2c3.style.backgroundColor = "";
+        l3c1.style.backgroundColor = "";
+        l3c2.style.backgroundColor = "";
+        l3c3.style.backgroundColor = "";
+    }
+    var xxxxx = "X";
+   if (evento.path[0].classList[1] === xxxxx === true) {
     var l1c1 = document.getElementById("linha-1_coluna-1");
     var l1c2 = document.getElementById("linha-1_coluna-2");
     var l1c3 = document.getElementById("linha-1_coluna-3");
@@ -113,19 +115,62 @@ var aux3 = tabuleiro.addEventListener('dblclick', function vitoriaO(evento) {
     var l3c1 = document.getElementById("linha-3_coluna-1");
     var l3c2 = document.getElementById("linha-3_coluna-2");
     var l3c3 = document.getElementById("linha-3_coluna-3");
+    console.log(l1c1.classList[1]);
+   }  else {console.log(evento)}
+   
+   if (l1c1.classList[1] == xxxxx && l1c2.classList[1] == xxxxx && l1c3.classList[1] == xxxxx) {
+    l1c1.style.backgroundColor = "red";
+    l1c2.style.backgroundColor = "red";
+    l1c3.style.backgroundColor = "red";
+    } else {console.log('l1x')}
+    
+    if (l2c1.classList[1] == xxxxx && l2c2.classList[1] == xxxxx && l2c3.classList[1] == xxxxx) {
+        l2c1.style.backgroundColor = "red";
+        l2c2.style.backgroundColor = "red";
+        l2c3.style.backgroundColor = "red";
+        } else {console.log('l2x')}
+        
+        if (l3c1.classList[1] == xxxxx && l3c2.classList[1] == xxxxx && l3c3.classList[1] == xxxxx) {
+            l3c1.style.backgroundColor = "red";
+            l3c2.style.backgroundColor = "red";
+            l3c3.style.backgroundColor = "red";
+            } else {
+        console.log('l3x')
+    }});
 
-    // var aux = tabuleiro.childNodes[1].classList.value
-    // var aux2 = [tabuleiro.childNodes[3].classList[0]]
-    // var aux3 = [tabuleiro.childNodes[5].classList[0]]
-    // if (evento.path[0].classList[1]){
-    //     tabuleiro.childNodes[1].style.backgroundColor = 'red';
-    // }
-    // else {
-    // console.log(aux)
-    // // console.log(aux2)
-    // console.log(aux3)}
-    console.log(evento.path[0].classList.value)
-})
+var aux4 = tabuleiro.addEventListener('dblclick', function vitoriaO(evento) {
+        function removeBackgroundColor() {
+            l1c1.style.backgroundColor = "";
+            l1c2.style.backgroundColor = "";
+            l1c3.style.backgroundColor = "";
+        }
+        var ooooo = "O";
+       if (evento.path[0].classList[1] === ooooo === true) {
+        var l1c1 = document.getElementById("linha-1_coluna-1");
+        var l1c2 = document.getElementById("linha-1_coluna-2");
+        var l1c3 = document.getElementById("linha-1_coluna-3");
+        var l2c1 = document.getElementById("linha-2_coluna-1");
+        var l2c2 = document.getElementById("linha-2_coluna-2");
+        var l2c3 = document.getElementById("linha-2_coluna-3");
+        var l3c1 = document.getElementById("linha-3_coluna-1");
+        var l3c2 = document.getElementById("linha-3_coluna-2");
+        var l3c3 = document.getElementById("linha-3_coluna-3");
+       } if (l1c1.classList[1] == ooooo && l1c2.classList[1] == ooooo && l1c3.classList[1] == ooooo) {
+        l1c1.style.backgroundColor = "red";
+        l1c2.style.backgroundColor = "red";
+        l1c3.style.backgroundColor = "red";
+        } if (l2c1.classList[1] == ooooo && l2c2.classList[1] == ooooo && l2c3.classList[1] == ooooo) {
+            l2c1.style.backgroundColor = "red";
+            l2c2.style.backgroundColor = "red";
+            l2c3.style.backgroundColor = "red";
+            } if (l3c1.classList[1] == ooooo && l3c2.classList[1] == ooooo && l3c3.classList[1] == ooooo) {
+                l1c1.style.backgroundColor = "red";
+                l1c2.style.backgroundColor = "red";
+                l1c3.style.backgroundColor = "red";
+                } else {
+            removeBackgroundColor()
+}});
+
 
 // uma outra perspectiva:
 
