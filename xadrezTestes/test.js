@@ -4,7 +4,7 @@ var siblings = Array.from(chessboard.children);
 
 var aux;
 
-console.log(siblings)
+// console.log(siblings)
 
 function umaCasaAcima(parameter) {
     var indexElemento = siblings.indexOf(parameter);
@@ -226,93 +226,125 @@ function seteCasaDireita(parameter) {
 
 
 
+function umaCasaEsquerda(parameter) {
+        var indexElemento = siblings.indexOf(parameter);
+        var indexCasa = indexElemento - 1;
+        var casa = siblings[indexCasa];
+        return casa;}
+
+function duasCasaEsquerda(parameter) {
+        var indexElemento = siblings.indexOf(parameter);
+        var indexCasa = indexElemento - 2;
+        var casa = siblings[indexCasa];
+        return casa;}
+
+function tresCasaEsquerda(parameter) {
+        var indexElemento = siblings.indexOf(parameter);
+        var indexCasa = indexElemento - 3;
+        var casa = siblings[indexCasa];
+        return casa;}
+
+function quatroCasaEsquerda(parameter) {
+        var indexElemento = siblings.indexOf(parameter);
+        var indexCasa = indexElemento - 4;
+        var casa = siblings[indexCasa];
+        return casa;}
+
+function cincoCasaEsquerda(parameter) {
+        var indexElemento = siblings.indexOf(parameter);
+        var indexCasa = indexElemento - 5;
+        var casa = siblings[indexCasa];
+        return casa;}
+
+function seisCasaEsquerda(parameter) {
+        var indexElemento = siblings.indexOf(parameter);
+        var indexCasa = indexElemento - 6;
+        var casa = siblings[indexCasa];
+        return casa;}
+
+function seteCasaEsquerda(parameter) {
+        var indexElemento = siblings.indexOf(parameter);
+        var indexCasa = indexElemento - 7;
+        var casa = siblings[indexCasa];
+        return casa;}
+
+
+function casasDireitaEsquerda(aux) {
+
+    var arrayAux = []
+    var umaCsDi;
+
+    if (!!umaCasaDireita(aux)) {
+    umaCsDi = umaCasaDireita(aux);
+    arrayAux.push(umaCsDi)}
+    var duasCsDi = duasCasaDireita(aux);
+    var treCsDi = tresCasaDireita(aux);
+    var quatroCsDi = quatroCasaDireita(aux);
+    var cincoCsDi = cincoCasaDireita(aux);
+    var seisCsDi = seisCasaDireita(aux);
+    var seteCsDi = seteCasaDireita(aux);
+
+    var umaCsEs = umaCasaEsquerda(aux);
+    var duasCsEs = duasCasaEsquerda(aux);
+    var tresCsEs = tresCasaEsquerda(aux);
+    var quatroCsEs = quatroCasaEsquerda(aux);
+    var cincoCsEs = cincoCasaEsquerda(aux);
+    var seisCsEs = seisCasaEsquerda(aux);
+    var seteCsEs = seteCasaEsquerda(aux);
+
+    return arrayAux;
+}
+
+
 chessboard.addEventListener('click', (elemento) => {
     aux = elemento.path[0];
 
-    // if elemento.classList.contains('linha2') && duasCsDi.classList.contains('linha2'){
-    //     duasCsDi.classList.add('avaiableMovement')
-    // }
-    // }
+    var casasDiEs = casasDireitaEsquerda(aux)
+
+    console.log(casasDiEs[0])})
+
+//     var n = 0;
+
+//     while (n < casasDiEs.length){
+
+//         var elementoAtual = casasDiEs[n]
+//         var elementoAnterior = casasDiEs[n - 1]
+
+//         console.log(elementoAtual);
+//         console.log(elementoAnterior);
+
+//         if (elementoAtual.classList.contains('l1')){
+//             elementoAtual.style.backgroundColor = 'yellow'
+//             elementoAtual.classList.add('avaiableMovement')
+//         }  else{null}
+
+//         if (!!elementoAnterior) {
+
+//         if (elementoAnterior.classList.contains('occupiedBlack') && elementoAtual.classList.contains('l1')) {
+//             elementoAnterior.style.backgroundColor = 'red';
+//             elementoAnterior.classList.add('finalMovement')
+//             console.log(elementoAtual);} else {null}
+        
+//         if (elementoAnterior.classList.contains('finalMovement')){
+//             elementoAtual.style.backgroundColor = 'green'
+//             elementoAtual.classList.remove('avaiableMovement')
+//             elementoAtual.classList.add('notPossibleMovement')
+//         } else {null}
+
+//         if (elementoAnterior.classList.contains('notPossibleMovement') && elementoAtual.classList.contains('l1')){
+//             elementoAtual.style.backgroundColor = 'green'
+//             elementoAtual.classList.remove('avaiableMovement')
+//             elementoAtual.classList.add('notPossibleMovement')
+//         } else {null}}
+
         
 
-    var umaCsDi = umaCasaDireita(aux);
-    console.log(umaCsDi)
-    var duasCsDi = duasCasaDireita(aux);
-    console.log(duasCsDi)
-    var tressDi = tresCasaDireita(aux);
-    console.log(tressDi)
-    var quatroCsDi = quatroCasaDireita(aux);
-    console.log(quatroCsDi)
-    var cincoCsDi = cincoCasaDireita(aux);
-    console.log(cincoCsDi)
-    var seisCsDi = seisCasaDireita(aux);
-    console.log(seisCsDi)
-    var seteCsDi = seteCasaDireita(aux);
-    console.log(seteCsDi)
+//         // if (elementoAnterior.classList.contains('occupiedBlack')){
+                
+//         // }
 
-    // var umaCsAc = umaCasaAcima(aux);
-    // console.log(umaCsAc);
-    // var duasCsAc = duasCasasAcima(aux);
-    // console.log(duasCsAc);
-    // var tresCsAc = tresCasasAcima(aux);
-    // console.log(tresCsAc);
-    // var quatroCsAc = quatroCasasAcima(aux);
-    // console.log(quatroCsAc);
-    // var cincoCsAc = cincoCasasAcima(aux);
-    // console.log(cincoCsAc);
-    // var seisCsAc = seisCasasAcima(aux);
-    // console.log(seisCsAc);
-    // var seteCsAc = seteCasasAcima(aux);
-    // console.log(seteCsAc)
+//         n++;
+//     }}
+// )
 
-    // var umaCsAb = umaCasaAbaixo(aux);
-    // console.log(umaCsAb);
-    // var duasCsAb = duasCasasAbaixo(aux);
-    // console.log(duasCsAb);
-    // var tresCsAb = tresCasasAbaixo(aux);
-    // console.log(tresCsAb);
-    // var quatroCsAb = quatroCasasAbaixo(aux);
-    // console.log(quatroCsAb);
-    // var cincoCsAb = cincoCasasAbaixo(aux);
-    // console.log(cincoCsAb);
-    // var seisCsAb = seisCasasAbaixo(aux);
-    // console.log(seisCsAb);
-    // var seteCsAb = seteCasasAbaixo(aux);
-    // console.log(seteCsAb)
 
-    // var dia1DiCi = diagonal1DireitaCima(aux);
-    // console.log(dia1DiCi);
-    // var dia2DiCi = diagonal2DireitaCima(aux);
-    // console.log(dia2DiCi);
-    // var dia3DiCi = diagonal3DireitaCima(aux);
-    // console.log(dia3DiCi);
-    // var dia4DiCi = diagonal4DireitaCima(aux);
-    // console.log(dia4DiCi);
-    // var dia5DiCi = diagonal5DireitaCima(aux);
-    // console.log(dia5DiCi);
-    // var dia6DiCi = diagonal6DireitaCima(aux);
-    // console.log(dia6DiCi);
-    // var dia7DiCi = diagonal7DireitaCima(aux);
-    // console.log(dia7DiCi)
-
-    // var dia1DiCi = diagonal1DireitaAbaixo(aux);
-    // console.log(dia1DiCi);
-    // var dia2DiCi = diagonal2DireitaAbaixo(aux);
-    // console.log(dia2DiCi);
-    // var dia3DiCi = diagonal3DireitaAbaixo(aux);
-    // console.log(dia3DiCi);
-    // var dia4DiCi = diagonal4DireitaAbaixo(aux);
-    // console.log(dia4DiCi);
-    // var dia5DiCi = diagonal5DireitaAbaixo(aux);
-    // console.log(dia5DiCi);
-    // var dia6DiCi = diagonal6DireitaAbaixo(aux);
-    // console.log(dia6DiCi);
-    // var dia7DiCi = diagonal7DireitaAbaixo(aux);
-    // console.log(dia7DiCi)
-})
-
-// var indexUmaCasaAcima = indexElemento - 8
-
-// var umaCasaAcima = siblings[indexUmaCasaAcima];
-
-// return umaCasaAcima;
