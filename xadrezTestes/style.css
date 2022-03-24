@@ -32,3 +32,15 @@ body {
       display: table-cell;
       vertical-align:middle;
   }
+
+  .onFocus {
+      background-color: yellow;
+  }
+
+  .avaiableMovement {
+      background-color: lightpink;
+  }
+
+  .red {
+    background-color: red;
+}

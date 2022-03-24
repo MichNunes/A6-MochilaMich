@@ -1,6 +1,20 @@
 var chessboard = document.getElementById('chessboard')
+chessboard.classList.add('turnoBranco')
 
 var siblings = Array.from(chessboard.children);
+var posiçãoSelecionada;
+
+function organizarClasses() {
+    siblings.forEach(element => {
+    var aux = element
+    if (aux.innerText == '♜' || aux.innerText == "♞" || aux.innerText == "♝" || aux.innerText == "♛" || aux.innerText == "♚" || aux.innerText == "♟") {
+        aux.classList.add('occupiedBlack')} else {aux.classList.remove('occupiedBlack')}
+    if (aux.innerText == '♖' || aux.innerText == "♘" || aux.innerText == "♗" || aux.innerText == "♕" || aux.innerText == "♔" || aux.innerText == "♙") {
+        aux.classList.add('occupiedWhite')} else {aux.classList.remove('occupiedWhite')}
+})};
+organizarClasses()
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function filhosAnteriores(parameter) {
     var posiçãoElementoInicial = siblings[parameter]
@@ -269,114 +283,400 @@ function casasLinhaDireita(parameter) {
     return casasDireitaArray;
 }
 
-var posiçãoSelecionada;
-var indexPosiçãoSelecionada
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function elementoAnterior(x, y) {
     if (x != 0) {return y[(x - 1)]}
-    else {return null}}
+    else {return null}
+}
+
+function classeFirstCasaBranco(x, y, z, a, b, c, d, e) {
+    if (!!x) {if (x.classList.contains('occupiedBlack') || x.classList.contains('occupiedWhite')) {null}
+                else {x.classList.add('avaiableMovement')}} else {null}
+    if (!!y) {if (y.classList.contains('occupiedBlack') || y.classList.contains('occupiedWhite')) {null}
+                else {y.classList.add('avaiableMovement')}} else {null}
+    if (!!z) {if (z.classList.contains('occupiedBlack') || z.classList.contains('occupiedWhite')) {null}
+                else {z.classList.add('avaiableMovement')}} else {null}
+    if (!!a) {if (a.classList.contains('occupiedBlack') || a.classList.contains('occupiedWhite')) {null}
+                else {a.classList.add('avaiableMovement')}} else {null}
+    if (b != null && b.classList.contains('occupiedBlack')) {
+        b.classList.add("red");
+        b.classList.add('avaiableMovement')} else {null}
+    if (c != null && c.classList.contains('occupiedBlack')) {
+        c.classList.add("red");
+        c.classList.add('avaiableMovement')} else {null}
+    if (d != null && d.classList.contains('occupiedBlack')) {
+        d.classList.add("red");
+        d.classList.add('avaiableMovement')} else {null}
+    if (e != null && e.classList.contains('occupiedBlack')) {
+        e.classList.add("red");
+        e.classList.add('avaiableMovement')} else {null}
+}
+
+function classeFirstCasaPreto(x, y, z, a, b, c, d, e) {
+    if (!!x) {if (x.classList.contains('occupiedWhite') || x.classList.contains('occupiedBlack')) {null}
+                else {x.classList.add('avaiableMovement')}} else {null}
+    if (!!y) {if (y.classList.contains('occupiedWhite') || y.classList.contains('occupiedBlack')) {null}
+                else {y.classList.add('avaiableMovement')}} else {null}
+    if (!!z) {if (z.classList.contains('occupiedWhite') || z.classList.contains('occupiedBlack')) {null}
+                else {z.classList.add('avaiableMovement')}} else {null}
+    if (!!a) {if (a.classList.contains('occupiedWhite') || a.classList.contains('occupiedBlack')) {null}
+                else {a.classList.add('avaiableMovement')}} else {null}
+    if (b != null && b.classList.contains('occupiedWhite')) {
+        b.classList.add("red");
+        b.classList.add('avaiableMovement')} else {null}
+    if (c != null && c.classList.contains('occupiedWhite')) {
+        c.classList.add("red");
+        c.classList.add('avaiableMovement')} else {null}
+    if (d != null && d.classList.contains('occupiedWhite')) {
+        d.classList.add("red");
+        d.classList.add('avaiableMovement')} else {null}
+    if (e != null && e.classList.contains('occupiedWhite')) {
+        e.classList.add("red");
+        e.classList.add('avaiableMovement')} else {null}
+}
+
+function removerEventListener(parameter) {
+    siblings.forEach(element => {
+        element.removeEventListener('click', parameter)
+    });
+}
+
+function removerClassList() {
+    siblings.forEach(element => {
+        element.classList.remove('onFocus')
+        element.classList.remove('avaiableMovement')
+        element.classList.remove('red')
+    });
+}
+
+function checarAvaiableMovement() {
+    var aux = []
+    siblings.forEach(element => {
+        if (element.classList.contains('avaiableMovement')){
+            aux.push(true)
+        }
+    })
+    return aux
+}
+
+function zerarElementosBranco(parameter) {
+    removerEventListener(parameter)
+    posiçãoSelecionada.innerHTML = '';
+    removerClassList()
+    organizarClasses()
+    chessboard.classList.remove('turnoBranco');
+    chessboard.classList.add('turnoPreto');
+    setTimeout(() => {
+        chessboard.addEventListener('click', game, {once : true})
+    }, 200);
+}
+
+function zerarElementosPreto(parameter) {
+    removerEventListener(parameter)
+    posiçãoSelecionada.innerHTML = '';
+    removerClassList()
+    organizarClasses()
+    chessboard.classList.remove('turnoPreto');
+    chessboard.classList.add('turnoBranco');
+    setTimeout(() => {
+        chessboard.addEventListener('click', game, {once : true})
+    }, 200);
+}
+
+function jogadaTorreBranca(element) {
+    element.path[0].innerHTML = "♖"
+    zerarElementosBranco(jogadaTorreBranca)
+}
+
+function jogadaTorrePreta(element) {
+    element.path[0].innerHTML = "♜"
+    zerarElementosPreto(jogadaTorrePreta)
+}
 
 function game(elemento) {
 
+    console.log(elemento)
+    
+    removerClassList()
     posiçãoSelecionada = elemento.path[0];
     indexPosiçãoSelecionada = siblings.indexOf(posiçãoSelecionada);
     
     var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
     var todosOsFilhosPosteriores = filhosPosteriores(indexPosiçãoSelecionada)
-    
-    if (posiçãoSelecionada.innerHTML == "♖") {
-        
+
+    if (chessboard.classList[1] == 'turnoBranco'){
+        if (posiçãoSelecionada.innerHTML != "♖"
+        // trocar conforme for fazendo as peças, só para o jogo nao bugar
+        ) {chessboard.addEventListener('click', game, {once : true}), 50} else {null}
+    //torre branca
+        if (posiçãoSelecionada.innerHTML == "♖") {
+
+        posiçãoSelecionada.classList.add('onFocus')
+
         var todasAsCasasDaColunaAcima = casasColunaAcima(todosOsFilhosAnteriores)
-        todasAsCasasDaColunaAcima[0].classList.add('avaiableMovement');
+        var todasAsCasasDaColunaAbaixo = casasColunaAbaixo(todosOsFilhosPosteriores)
+        var todasAsCasasDaLinhaEsquerda = casasLinhaEsquerda(todosOsFilhosAnteriores)
+        var todasAsCasasDaLinhaDireita = casasLinhaDireita(todosOsFilhosPosteriores)
+
+        var proxCima = todasAsCasasDaColunaAcima[0]
+        var proxBaixo = todasAsCasasDaColunaAbaixo[0]
+        var proxEsquerda = todasAsCasasDaLinhaEsquerda[0]
+        var proxDireita = todasAsCasasDaLinhaDireita[0]
+
+        classeFirstCasaBranco(todasAsCasasDaColunaAcima[0], todasAsCasasDaColunaAbaixo[0], todasAsCasasDaLinhaEsquerda[0], todasAsCasasDaLinhaDireita[0], proxCima, proxBaixo, proxEsquerda, proxDireita)
 
         todasAsCasasDaColunaAcima.forEach(element => {
 
             var atualIndex = todasAsCasasDaColunaAcima.indexOf(element);
-            var anterior = elementoAnterior(atualIndex, todasAsCasasDaColunaAcima)
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaColunaAcima);
 
             if (anterior != null && anterior.classList.contains('avaiableMovement')){
-                element.classList.add('avaiableMovement')}
-
-            // element.addEventListener('click', jogadaTorreBranca, {once : true})
-
-            if (element.classList.contains('occupiedBlack')){
-                element.style.backgroundColor = 'red'}
-
-
+                element.classList.add('avaiableMovement')} else {null}
 
             if (anterior != null && anterior.classList.contains('occupiedBlack')){
-                element.classList.remove('avaiableMovement')
-            //     // element.removeEventListener('click', jogadaTorreBranca)
-            }
+                element.classList.remove('avaiableMovement')} else {null}
 
+            if (element.classList.contains('avaiableMovement')) {
+                element.addEventListener('click', jogadaTorreBranca, {once : true})} 
 
-            // else {
-                // element.classList.remove('avaiableMovement');
-                // element.removeEventListener('click', jogadaTorreBranca)
-            // }
+            if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                element.classList.add('red')} else {null}
 
-            console.log(anterior)
-            // chessboard.addEventListener('click', game, {once : true})
-            // vai estar dento da jogadaTorreBranca
-            // console.log('bateu')
+            if (element.classList.contains('occupiedWhite')){
+                element.classList.remove('avaiableMovement')} else {null}
         });
-       
-    }
+
+        todasAsCasasDaColunaAbaixo.forEach(element => {
+
+            var atualIndex = todasAsCasasDaColunaAbaixo.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaColunaAbaixo);
+
+            if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                element.classList.add('avaiableMovement')} else {null}
+
+            if (anterior != null && anterior.classList.contains('occupiedBlack')){
+                element.classList.remove('avaiableMovement')} else {null}
+
+            if (element.classList.contains('avaiableMovement')) {
+                element.addEventListener('click', jogadaTorreBranca, {once : true})}
+
+            if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                element.classList.add('red')} else {null}
+
+            if (element.classList.contains('occupiedWhite')){
+                element.classList.remove('avaiableMovement')} else {null}
+        });
+
+        todasAsCasasDaLinhaEsquerda.forEach(element => {
+
+            var atualIndex = todasAsCasasDaLinhaEsquerda.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaLinhaEsquerda);
+
+            if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                element.classList.add('avaiableMovement')} else {null}
+
+            if (anterior != null && anterior.classList.contains('occupiedBlack')){
+                element.classList.remove('avaiableMovement');} else {null}
+
+            if (element.classList.contains('avaiableMovement')) {
+                element.addEventListener('click', jogadaTorreBranca, {once : true})}
+
+            if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                element.classList.add('red')} else {null}
+
+            if (element.classList.contains('occupiedWhite')){
+                element.classList.remove('avaiableMovement')} else {null}
+        });
+
+        todasAsCasasDaLinhaDireita.forEach(element => {
+
+            var atualIndex = todasAsCasasDaLinhaDireita.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaLinhaDireita);
+
+            if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                element.classList.add('avaiableMovement')} else {null}
+
+            if (anterior != null && anterior.classList.contains('occupiedBlack') || anterior != null && anterior.classList.contains('occupiedWhite')){
+                element.classList.remove('avaiableMovement')} else {null}
+
+            if (element.classList.contains('avaiableMovement')) {
+                element.addEventListener('click', jogadaTorreBranca, {once : true})} 
+
+            if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                element.classList.add('red')} else {null}
+
+            if (element.classList.contains('occupiedWhite')){
+                element.classList.remove('avaiableMovement')} else {null}
+        });
+        // var aux = []
+        // aux = checarAvaiableMovement()
+        // if (aux.indexOf(true)){
+        //     console.log(bateu)
+        // }
+        if (checarAvaiableMovement().length == 0) {chessboard.addEventListener('click', game, {once : true}), 50} else {null}
+        }
+    } else {null}
+
+    if (chessboard.classList[1] == 'turnoPreto') {
+        if (posiçãoSelecionada.innerHTML != "♜"
+        // trocar conforme for fazendo as peças, só para o jogo nao bugar
+        ) {chessboard.addEventListener('click', game, {once : true}), 50} else {null}
+        //torre preta
+        if (posiçãoSelecionada.innerHTML == "♜") {
+        
+            posiçãoSelecionada.classList.add('onFocus')
+
+            var todasAsCasasDaColunaAcima = casasColunaAcima(todosOsFilhosAnteriores)
+            var todasAsCasasDaColunaAbaixo = casasColunaAbaixo(todosOsFilhosPosteriores)
+            var todasAsCasasDaLinhaEsquerda = casasLinhaEsquerda(todosOsFilhosAnteriores)
+            var todasAsCasasDaLinhaDireita = casasLinhaDireita(todosOsFilhosPosteriores)
+
+            var proxCima = todasAsCasasDaColunaAcima[0]
+            var proxBaixo = todasAsCasasDaColunaAbaixo[0]
+            var proxEsquerda = todasAsCasasDaLinhaEsquerda[0]
+            var proxDireita = todasAsCasasDaLinhaDireita[0]
+
+            classeFirstCasaPreto(todasAsCasasDaColunaAcima[0], todasAsCasasDaColunaAbaixo[0], todasAsCasasDaLinhaEsquerda[0], todasAsCasasDaLinhaDireita[0], proxCima, proxBaixo, proxEsquerda, proxDireita)
+
+            todasAsCasasDaColunaAcima.forEach(element => {
+
+            var atualIndex = todasAsCasasDaColunaAcima.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaColunaAcima);
+
+            if (anterior != null && anterior.classList.contains('avaiableMovement')){
+            element.classList.add('avaiableMovement')} else {null}
+
+            if (anterior != null && anterior.classList.contains('occupiedWhite')){
+            element.classList.remove('avaiableMovement')} else {null}
+
+            if (element.classList.contains('avaiableMovement')) {
+            element.addEventListener('click', jogadaTorrePreta, {once : true})} 
+
+            if (element.classList.contains('occupiedWhite') && element.classList.contains('avaiableMovement')) {
+            element.classList.add('red')} else {null}
+
+            if (element.classList.contains('occupiedBlack')){
+            element.classList.remove('avaiableMovement')} else {null}
+            });
+
+            todasAsCasasDaColunaAbaixo.forEach(element => {
+
+            var atualIndex = todasAsCasasDaColunaAbaixo.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaColunaAbaixo);
+
+            if (anterior != null && anterior.classList.contains('avaiableMovement')){
+            element.classList.add('avaiableMovement')} else {null}
+
+            if (anterior != null && anterior.classList.contains('occupiedWhite')){
+            element.classList.remove('avaiableMovement')} else {null}
+
+            if (element.classList.contains('avaiableMovement')) {
+                element.addEventListener('click', jogadaTorrePreta, {once : true})}
+            
+            if (element.classList.contains('occupiedWhite') && element.classList.contains('avaiableMovement')) {
+                element.classList.add('red')} else {null}
+            
+            if (element.classList.contains('occupiedBlack')){
+                element.classList.remove('avaiableMovement')} else {null}
+            });
+        
+            todasAsCasasDaLinhaEsquerda.forEach(element => {
+        
+            var atualIndex = todasAsCasasDaLinhaEsquerda.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaLinhaEsquerda);
+        
+            if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                element.classList.add('avaiableMovement')} else {null}
+            
+            if (anterior != null && anterior.classList.contains('occupiedWhite')){
+                element.classList.remove('avaiableMovement');} else {null}
+            
+            if (element.classList.contains('avaiableMovement')) {
+                element.addEventListener('click', jogadaTorrePreta, {once : true})}
+            
+            if (element.classList.contains('occupiedWhite') && element.classList.contains('avaiableMovement')) {
+                element.classList.add('red')} else {null}
+            
+            if (element.classList.contains('occupiedBlack')){
+                element.classList.remove('avaiableMovement')} else {null}
+            });
+        
+            todasAsCasasDaLinhaDireita.forEach(element => {
+        
+            var atualIndex = todasAsCasasDaLinhaDireita.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaLinhaDireita);
+        
+            if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                element.classList.add('avaiableMovement')} else {null}
+            
+            if (anterior != null && anterior.classList.contains('occupiedWhite') || anterior != null && anterior.classList.contains('occupiedWhite')){
+                element.classList.remove('avaiableMovement')} else {null}
+            
+            if (element.classList.contains('avaiableMovement')) {
+                element.addEventListener('click', jogadaTorrePreta, {once : true})} 
+            
+            if (element.classList.contains('occupiedWhite') && element.classList.contains('avaiableMovement')) {
+                element.classList.add('red')} else {null}
+            
+            if (element.classList.contains('occupiedBlack')){
+                element.classList.remove('avaiableMovement')} else {null}
+            });
+            if (checarAvaiableMovement().length == 0) {chessboard.addEventListener('click', game, {once : true}), 50} else {null}
+        }
+    } else {null}
 }
-
-    // var todasAsCasasDaColunaAcima = casasColunaAcima(todosOsFilhosAnteriores)
-    // console.log(todasAsCasasDaColunaAcima)
-    // // torre
-    // // rainha
-    // // apenas uma casa: rei e peao = todasAsCasasDaColunaAcima[0]
-
-    // var todasAsCasasDaColunaAbaixo = casasColunaAbaixo(todosOsFilhosPosteriores)
-    // console.log(todasAsCasasDaColunaAbaixo)
-    // // torre
-    // // rainha
-    // // apenas uma casa: rei e peao = todasAsCasasDaColunaAbaixo[0]
-
-    // var todasAsCasasDaLinhaEsquerda = casasLinhaEsquerda(todosOsFilhosAnteriores)
-    // console.log(todasAsCasasDaLinhaEsquerda);
-    // // torre
-    // // rainha
-    // // apenas uma casa: rei = todasAsCasasDaLinhaEsquerda[0]
-
-    // var todasAsCasasDaLinhaDireita = casasLinhaDireita(todosOsFilhosPosteriores)
-    // console.log(todasAsCasasDaLinhaDireita)
-    // // torre
-    // // rainha
-    // // apenas uma casa: rei = todasAsCasasDaLinhaDireita[0]
-
-    // var todasAsCasasDiagonalDiretaCima = casasDiagonalDireitaCima(todosOsFilhosAnteriores)
-    // console.log(todasAsCasasDiagonalDiretaCima)
-    // // bispo
-    // // rainha
-    // // apenas uma casa: rei e peao = todasAsCasasDiagonalDiretaCima[0]
-
-    // var todasAsCasasDiagonalDiretaBaixo = casasDiagonalDireitaBaixo(todosOsFilhosPosteriores)
-    // console.log(todasAsCasasDiagonalDiretaBaixo)
-    // // bispo
-    // // rainha
-    // // apenas uma casa: rei e peao = todasAsCasasDiagonalDiretaBaixo[0]
-
-    // var todasAsCasasDiagonalEsquerdaCima = casasDiagonalEsquerdaCima(todosOsFilhosAnteriores)
-    // console.log(todasAsCasasDiagonalEsquerdaCima)
-    // // bispo
-    // // rainha
-    // // apenas uma casa: rei e peao = todasAsCasasDiagonalEsquerdaCima[0]
-
-    // var todasAsCasasDiagonalEsquerdaBaixo = casasDiagonalEsquerdaBaixo(todosOsFilhosPosteriores)
-    // console.log(todasAsCasasDiagonalEsquerdaBaixo)
-    // // bispo
-    // // rainha
-    // // apenas uma casa: rei e peao = todasAsCasasDiagonalEsquerdaBaixo[0]
-
-// }
 
 chessboard.addEventListener('click', game, {once : true})
 
-    
+    // // var todasAsCasasDaColunaAcima = casasColunaAcima(todosOsFilhosAnteriores)
+    // // console.log(todasAsCasasDaColunaAcima)
+    // // // torre
+    // // // rainha
+    // // // apenas uma casa: rei e peao = todasAsCasasDaColunaAcima[0]
+
+    // // var todasAsCasasDaColunaAbaixo = casasColunaAbaixo(todosOsFilhosPosteriores)
+    // // console.log(todasAsCasasDaColunaAbaixo)
+    // // // torre
+    // // // rainha
+    // // // apenas uma casa: rei e peao = todasAsCasasDaColunaAbaixo[0]
+
+    // // var todasAsCasasDaLinhaEsquerda = casasLinhaEsquerda(todosOsFilhosAnteriores)
+    // // console.log(todasAsCasasDaLinhaEsquerda);
+    // // // torre
+    // // // rainha
+    // // // apenas uma casa: rei = todasAsCasasDaLinhaEsquerda[0]
+
+    // // var todasAsCasasDaLinhaDireita = casasLinhaDireita(todosOsFilhosPosteriores)
+    // // console.log(todasAsCasasDaLinhaDireita)
+    // // // torre
+    // // // rainha
+    // // // apenas uma casa: rei = todasAsCasasDaLinhaDireita[0]
+
+    // // var todasAsCasasDiagonalDiretaCima = casasDiagonalDireitaCima(todosOsFilhosAnteriores)
+    // // console.log(todasAsCasasDiagonalDiretaCima)
+    // // // bispo
+    // // // rainha
+    // // // apenas uma casa: rei e peao = todasAsCasasDiagonalDiretaCima[0]
+
+    // // var todasAsCasasDiagonalDiretaBaixo = casasDiagonalDireitaBaixo(todosOsFilhosPosteriores)
+    // // console.log(todasAsCasasDiagonalDiretaBaixo)
+    // // // bispo
+    // // // rainha
+    // // // apenas uma casa: rei e peao = todasAsCasasDiagonalDiretaBaixo[0]
+
+    // // var todasAsCasasDiagonalEsquerdaCima = casasDiagonalEsquerdaCima(todosOsFilhosAnteriores)
+    // // console.log(todasAsCasasDiagonalEsquerdaCima)
+    // // // bispo
+    // // // rainha
+    // // // apenas uma casa: rei e peao = todasAsCasasDiagonalEsquerdaCima[0]
+
+    // // var todasAsCasasDiagonalEsquerdaBaixo = casasDiagonalEsquerdaBaixo(todosOsFilhosPosteriores)
+    // // console.log(todasAsCasasDiagonalEsquerdaBaixo)
+    // // // bispo
+    // // // rainha
+    // // // apenas uma casa: rei e peao = todasAsCasasDiagonalEsquerdaBaixo[0]
+
 
 
 
@@ -389,7 +689,7 @@ chessboard.addEventListener('click', game, {once : true})
 //         console.log(elementoAnterior);
 
 //         if (elementoAtual.classList.contains('l1')){
-//             elementoAtual.style.backgroundColor = 'yellow'
+//             elementoAtual.style.backgroundColor = 'onFocus'
 //             elementoAtual.classList.add('avaiableMovement')
 //         }  else{null}
 
