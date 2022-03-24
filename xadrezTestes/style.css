@@ -8,7 +8,7 @@ body {
       margin: 20px;
       border: 10px solid #000;
       border-radius: 4px;
-  background: #e59110;
+  background: #e5901000;
   box-shadow:  5px 5px 8px #bebdb6,
                -5px -5px 8px #ffffff;
   }
@@ -16,7 +16,7 @@ body {
       float: left;
       width: 80px;
       height: 80px;
-      background-color: #e59110;
+      background-color: #837e39a9;
         font-size:50px;
       text-align:center;
       display: table-cell;
@@ -26,7 +26,7 @@ body {
       float: left;
       width: 80px;
       height: 80px;
-      background-color: #ffcfb6;
+      background-color: #ffffff41;
       font-size:50px;
       text-align:center;
       display: table-cell;
@@ -34,11 +34,11 @@ body {
   }
 
   .onFocus {
-      background-color: yellow;
+      background-color: rgba(255, 255, 0, 0.212);
   }
 
   .avaiableMovement {
-      background-color: lightpink;
+      background-color: rgba(189, 76, 57, 0.11);
   }
 
   .red {

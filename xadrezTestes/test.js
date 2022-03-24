@@ -313,6 +313,49 @@ function classeFirstCasaBranco(x, y, z, a, b, c, d, e) {
         e.classList.add('avaiableMovement')} else {null}
 }
 
+function classeFirstCasaRainhaBranco(x, y, z, a, b, c, d, e, f, g, h, i, j, k, l, m) {
+    if (!!x) {if (x.classList.contains('occupiedBlack') || x.classList.contains('occupiedWhite')) {null}
+                else {x.classList.add('avaiableMovement')}} else {null}
+    if (!!y) {if (y.classList.contains('occupiedBlack') || y.classList.contains('occupiedWhite')) {null}
+                else {y.classList.add('avaiableMovement')}} else {null}
+    if (!!z) {if (z.classList.contains('occupiedBlack') || z.classList.contains('occupiedWhite')) {null}
+                else {z.classList.add('avaiableMovement')}} else {null}
+    if (!!a) {if (a.classList.contains('occupiedBlack') || a.classList.contains('occupiedWhite')) {null}
+                else {a.classList.add('avaiableMovement')}} else {null}
+    if (!!b) {if (b.classList.contains('occupiedBlack') || b.classList.contains('occupiedWhite')) {null}
+                else {b.classList.add('avaiableMovement')}} else {null}
+    if (!!c) {if (c.classList.contains('occupiedBlack') || c.classList.contains('occupiedWhite')) {null}
+                else {c.classList.add('avaiableMovement')}} else {null}
+    if (!!d) {if (d.classList.contains('occupiedBlack') || d.classList.contains('occupiedWhite')) {null}
+                else {d.classList.add('avaiableMovement')}} else {null}
+    if (!!e) {if (e.classList.contains('occupiedBlack') || e.classList.contains('occupiedWhite')) {null}
+                else {e.classList.add('avaiableMovement')}} else {null}
+    if (f != null && f.classList.contains('occupiedBlack')) {
+        f.classList.add("red");
+        f.classList.add('avaiableMovement')} else {null}
+    if (g != null && g.classList.contains('occupiedBlack')) {
+        g.classList.add("red");
+        g.classList.add('avaiableMovement')} else {null}
+    if (h != null && h.classList.contains('occupiedBlack')) {
+        h.classList.add("red");
+        h.classList.add('avaiableMovement')} else {null}
+    if (i != null && i.classList.contains('occupiedBlack')) {
+        i.classList.add("red");
+        i.classList.add('avaiableMovement')} else {null}
+    if (j != null && j.classList.contains('occupiedBlack')) {
+        j.classList.add("red");
+        j.classList.add('avaiableMovement')} else {null}
+    if (k != null && k.classList.contains('occupiedBlack')) {
+        k.classList.add("red");
+        k.classList.add('avaiableMovement')} else {null}
+    if (l != null && l.classList.contains('occupiedBlack')) {
+        l.classList.add("red");
+        l.classList.add('avaiableMovement')} else {null}
+    if (m != null && m.classList.contains('occupiedBlack')) {
+        m.classList.add("red");
+        m.classList.add('avaiableMovement')} else {null}
+}
+
 function classeFirstCasaPreto(x, y, z, a, b, c, d, e) {
     if (!!x) {if (x.classList.contains('occupiedWhite') || x.classList.contains('occupiedBlack')) {null}
                 else {x.classList.add('avaiableMovement')}} else {null}
@@ -389,9 +432,29 @@ function jogadaTorreBranca(element) {
     zerarElementosBranco(jogadaTorreBranca)
 }
 
+function jogadaBispoBranco(element) {
+    element.path[0].innerHTML = "♗"
+    zerarElementosBranco(jogadaBispoBranco)
+}
+
 function jogadaTorrePreta(element) {
     element.path[0].innerHTML = "♜"
     zerarElementosPreto(jogadaTorrePreta)
+}
+
+function jogadaBispoPreto(element) {
+    element.path[0].innerHTML = "♝"
+    zerarElementosPreto(jogadaBispoPreto)
+}
+
+function jogadaRainhaBranca(element) {
+    element.path[0].innerHTML = "♕"
+    zerarElementosBranco(jogadaRainhaBranca)
+}
+
+function jogadaRainhaPreta(element) {
+    element.path[0].innerHTML = "♛"
+    zerarElementosPreto(jogadaRainhaPreta)
 }
 
 function game(elemento) {
@@ -509,14 +572,305 @@ function game(elemento) {
             if (element.classList.contains('occupiedWhite')){
                 element.classList.remove('avaiableMovement')} else {null}
         });
-        // var aux = []
-        // aux = checarAvaiableMovement()
-        // if (aux.indexOf(true)){
-        //     console.log(bateu)
-        // }
-        if (checarAvaiableMovement().length == 0) {chessboard.addEventListener('click', game, {once : true}), 50} else {null}
-        }
-    } else {null}
+        if (checarAvaiableMovement().length == 0) {chessboard.addEventListener('click', game, {once : true}), 50} else {null}}
+    
+        if (posiçãoSelecionada.innerHTML == "♗") {
+
+            posiçãoSelecionada.classList.add('onFocus')
+    
+            var todasAsCasasDaDDC = casasDiagonalDireitaCima(todosOsFilhosAnteriores)
+            var todasAsCasasDaDDB = casasDiagonalDireitaBaixo(todosOsFilhosPosteriores)
+            var todasAsCasasDEC = casasDiagonalEsquerdaCima(todosOsFilhosAnteriores)
+            var todasAsCasasDEB = casasDiagonalEsquerdaBaixo(todosOsFilhosPosteriores)
+    
+            var proxCima = todasAsCasasDaDDC[0]
+            var proxBaixo = todasAsCasasDaDDB[0]
+            var proxEsquerda = todasAsCasasDEC[0]
+            var proxDireita = todasAsCasasDEB[0]
+    
+            classeFirstCasaBranco(todasAsCasasDaDDC[0], todasAsCasasDaDDB[0], todasAsCasasDEC[0], todasAsCasasDEB[0], proxCima, proxBaixo, proxEsquerda, proxDireita)
+    
+            todasAsCasasDaDDC.forEach(element => {
+    
+                var atualIndex = todasAsCasasDaDDC.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDaDDC);
+    
+                if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                    element.classList.add('avaiableMovement')} else {null}
+    
+                if (anterior != null && anterior.classList.contains('occupiedBlack')){
+                    element.classList.remove('avaiableMovement')} else {null}
+    
+                if (element.classList.contains('avaiableMovement')) {
+                    element.addEventListener('click', jogadaBispoBranco, {once : true})} 
+    
+                if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                    element.classList.add('red')} else {null}
+    
+                if (element.classList.contains('occupiedWhite')){
+                    element.classList.remove('avaiableMovement')} else {null}
+            });
+    
+            todasAsCasasDaDDB.forEach(element => {
+    
+                var atualIndex = todasAsCasasDaDDB.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDaDDB);
+    
+                if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                    element.classList.add('avaiableMovement')} else {null}
+    
+                if (anterior != null && anterior.classList.contains('occupiedBlack')){
+                    element.classList.remove('avaiableMovement')} else {null}
+    
+                if (element.classList.contains('avaiableMovement')) {
+                    element.addEventListener('click', jogadaBispoBranco, {once : true})}
+    
+                if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                    element.classList.add('red')} else {null}
+    
+                if (element.classList.contains('occupiedWhite')){
+                    element.classList.remove('avaiableMovement')} else {null}
+            });
+    
+            todasAsCasasDEC.forEach(element => {
+    
+                var atualIndex = todasAsCasasDEC.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDEC);
+    
+                if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                    element.classList.add('avaiableMovement')} else {null}
+    
+                if (anterior != null && anterior.classList.contains('occupiedBlack')){
+                    element.classList.remove('avaiableMovement');} else {null}
+    
+                if (element.classList.contains('avaiableMovement')) {
+                    element.addEventListener('click', jogadaBispoBranco, {once : true})}
+    
+                if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                    element.classList.add('red')} else {null}
+    
+                if (element.classList.contains('occupiedWhite')){
+                    element.classList.remove('avaiableMovement')} else {null}
+            });
+    
+            todasAsCasasDEB.forEach(element => {
+    
+                var atualIndex = todasAsCasasDEB.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDEB);
+    
+                if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                    element.classList.add('avaiableMovement')} else {null}
+    
+                if (anterior != null && anterior.classList.contains('occupiedBlack') || anterior != null && anterior.classList.contains('occupiedWhite')){
+                    element.classList.remove('avaiableMovement')} else {null}
+    
+                if (element.classList.contains('avaiableMovement')) {
+                    element.addEventListener('click', jogadaBispoBranco, {once : true})} 
+    
+                if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                    element.classList.add('red')} else {null}
+    
+                if (element.classList.contains('occupiedWhite')){
+                    element.classList.remove('avaiableMovement')} else {null}
+            });
+            if (checarAvaiableMovement().length == 0) {chessboard.addEventListener('click', game, {once : true}), 50} else {null}}
+
+            if (posiçãoSelecionada.innerHTML == "♕") {
+
+            posiçãoSelecionada.classList.add('onFocus')
+    
+            var todasAsCasasDaColunaAcima = casasColunaAcima(todosOsFilhosAnteriores)
+            var todasAsCasasDaColunaAbaixo = casasColunaAbaixo(todosOsFilhosPosteriores)
+            var todasAsCasasDaLinhaEsquerda = casasLinhaEsquerda(todosOsFilhosAnteriores)
+            var todasAsCasasDaLinhaDireita = casasLinhaDireita(todosOsFilhosPosteriores)
+            var todasAsCasasDaDDC = casasDiagonalDireitaCima(todosOsFilhosAnteriores)
+            var todasAsCasasDaDDB = casasDiagonalDireitaBaixo(todosOsFilhosPosteriores)
+            var todasAsCasasDEC = casasDiagonalEsquerdaCima(todosOsFilhosAnteriores)
+            var todasAsCasasDEB = casasDiagonalEsquerdaBaixo(todosOsFilhosPosteriores)
+    
+            var proxCima = todasAsCasasDaColunaAcima[0]
+            var proxBaixo = todasAsCasasDaColunaAbaixo[0]
+            var proxEsquerda = todasAsCasasDaLinhaEsquerda[0]
+            var proxDireita = todasAsCasasDaLinhaDireita[0]
+            var proxCimaD = todasAsCasasDaDDC[0]
+            var proxBaixoD = todasAsCasasDaDDB[0]
+            var proxEsquerdaD = todasAsCasasDEC[0]
+            var proxDireitaD = todasAsCasasDEB[0]
+    
+            classeFirstCasaRainhaBranco(todasAsCasasDaColunaAcima[0], todasAsCasasDaColunaAbaixo[0], todasAsCasasDaLinhaEsquerda[0], todasAsCasasDaLinhaDireita[0],
+                todasAsCasasDaDDC[0], todasAsCasasDaDDB[0], todasAsCasasDEC[0], todasAsCasasDEB[0], proxCima, proxBaixo, proxEsquerda, proxDireita, proxCimaD, proxBaixoD, proxEsquerdaD, proxDireitaD)
+    
+            todasAsCasasDaColunaAcima.forEach(element => {
+
+            var atualIndex = todasAsCasasDaColunaAcima.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaColunaAcima);
+
+            if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                element.classList.add('avaiableMovement')} else {null}
+
+            if (anterior != null && anterior.classList.contains('occupiedBlack')){
+                element.classList.remove('avaiableMovement')} else {null}
+
+            if (element.classList.contains('avaiableMovement')) {
+                element.addEventListener('click', jogadaRainhaBranca, {once : true})} 
+
+            if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                element.classList.add('red')} else {null}
+
+            if (element.classList.contains('occupiedWhite')){
+                element.classList.remove('avaiableMovement')} else {null}
+        });
+
+        todasAsCasasDaColunaAbaixo.forEach(element => {
+
+            var atualIndex = todasAsCasasDaColunaAbaixo.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaColunaAbaixo);
+
+            if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                element.classList.add('avaiableMovement')} else {null}
+
+            if (anterior != null && anterior.classList.contains('occupiedBlack')){
+                element.classList.remove('avaiableMovement')} else {null}
+
+            if (element.classList.contains('avaiableMovement')) {
+                element.addEventListener('click', jogadaRainhaBranca, {once : true})}
+
+            if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                element.classList.add('red')} else {null}
+
+            if (element.classList.contains('occupiedWhite')){
+                element.classList.remove('avaiableMovement')} else {null}
+        });
+
+        todasAsCasasDaLinhaEsquerda.forEach(element => {
+
+            var atualIndex = todasAsCasasDaLinhaEsquerda.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaLinhaEsquerda);
+
+            if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                element.classList.add('avaiableMovement')} else {null}
+
+            if (anterior != null && anterior.classList.contains('occupiedBlack')){
+                element.classList.remove('avaiableMovement');} else {null}
+
+            if (element.classList.contains('avaiableMovement')) {
+                element.addEventListener('click', jogadaRainhaBranca, {once : true})}
+
+            if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                element.classList.add('red')} else {null}
+
+            if (element.classList.contains('occupiedWhite')){
+                element.classList.remove('avaiableMovement')} else {null}
+        });
+
+        todasAsCasasDaLinhaDireita.forEach(element => {
+
+            var atualIndex = todasAsCasasDaLinhaDireita.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaLinhaDireita);
+
+            if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                element.classList.add('avaiableMovement')} else {null}
+
+            if (anterior != null && anterior.classList.contains('occupiedBlack') || anterior != null && anterior.classList.contains('occupiedWhite')){
+                element.classList.remove('avaiableMovement')} else {null}
+
+            if (element.classList.contains('avaiableMovement')) {
+                element.addEventListener('click', jogadaRainhaBranca, {once : true})} 
+
+            if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                element.classList.add('red')} else {null}
+
+            if (element.classList.contains('occupiedWhite')){
+                element.classList.remove('avaiableMovement')} else {null}
+        });
+
+            todasAsCasasDaDDC.forEach(element => {
+    
+                var atualIndex = todasAsCasasDaDDC.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDaDDC);
+    
+                if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                    element.classList.add('avaiableMovement')} else {null}
+    
+                if (anterior != null && anterior.classList.contains('occupiedBlack')){
+                    element.classList.remove('avaiableMovement')} else {null}
+    
+                if (element.classList.contains('avaiableMovement')) {
+                    element.addEventListener('click', jogadaRainhaBranca, {once : true})} 
+    
+                if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                    element.classList.add('red')} else {null}
+    
+                if (element.classList.contains('occupiedWhite')){
+                    element.classList.remove('avaiableMovement')} else {null}
+            });
+    
+            todasAsCasasDaDDB.forEach(element => {
+    
+                var atualIndex = todasAsCasasDaDDB.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDaDDB);
+    
+                if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                    element.classList.add('avaiableMovement')} else {null}
+    
+                if (anterior != null && anterior.classList.contains('occupiedBlack')){
+                    element.classList.remove('avaiableMovement')} else {null}
+    
+                if (element.classList.contains('avaiableMovement')) {
+                    element.addEventListener('click', jogadaRainhaBranca, {once : true})}
+    
+                if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                    element.classList.add('red')} else {null}
+    
+                if (element.classList.contains('occupiedWhite')){
+                    element.classList.remove('avaiableMovement')} else {null}
+            });
+    
+            todasAsCasasDEC.forEach(element => {
+    
+                var atualIndex = todasAsCasasDEC.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDEC);
+    
+                if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                    element.classList.add('avaiableMovement')} else {null}
+    
+                if (anterior != null && anterior.classList.contains('occupiedBlack')){
+                    element.classList.remove('avaiableMovement');} else {null}
+    
+                if (element.classList.contains('avaiableMovement')) {
+                    element.addEventListener('click', jogadaRainhaBranca, {once : true})}
+    
+                if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                    element.classList.add('red')} else {null}
+    
+                if (element.classList.contains('occupiedWhite')){
+                    element.classList.remove('avaiableMovement')} else {null}
+            });
+    
+            todasAsCasasDEB.forEach(element => {
+    
+                var atualIndex = todasAsCasasDEB.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDEB);
+    
+                if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                    element.classList.add('avaiableMovement')} else {null}
+    
+                if (anterior != null && anterior.classList.contains('occupiedBlack') || anterior != null && anterior.classList.contains('occupiedWhite')){
+                    element.classList.remove('avaiableMovement')} else {null}
+    
+                if (element.classList.contains('avaiableMovement')) {
+                    element.addEventListener('click', jogadaRainhaBranca, {once : true})} 
+    
+                if (element.classList.contains('occupiedBlack') && element.classList.contains('avaiableMovement')) {
+                    element.classList.add('red')} else {null}
+    
+                if (element.classList.contains('occupiedWhite')){
+                    element.classList.remove('avaiableMovement')} else {null}
+            });
+            if (checarAvaiableMovement().length == 0) {chessboard.addEventListener('click', game, {once : true}), 50} else {null}}
+
+    }
+
 
     if (chessboard.classList[1] == 'turnoPreto') {
         if (posiçãoSelecionada.innerHTML != "♜"
@@ -622,9 +976,110 @@ function game(elemento) {
             if (element.classList.contains('occupiedBlack')){
                 element.classList.remove('avaiableMovement')} else {null}
             });
-            if (checarAvaiableMovement().length == 0) {chessboard.addEventListener('click', game, {once : true}), 50} else {null}
-        }
-    } else {null}
+            if (checarAvaiableMovement().length == 0) {chessboard.addEventListener('click', game, {once : true}), 50} else {null}}
+    
+            if (posiçãoSelecionada.innerHTML == "♝") {
+
+                posiçãoSelecionada.classList.add('onFocus')
+        
+                var todasAsCasasDaDDC = casasDiagonalDireitaCima(todosOsFilhosAnteriores)
+                var todasAsCasasDaDDB = casasDiagonalDireitaBaixo(todosOsFilhosPosteriores)
+                var todasAsCasasDEC = casasDiagonalEsquerdaCima(todosOsFilhosAnteriores)
+                var todasAsCasasDEB = casasDiagonalEsquerdaBaixo(todosOsFilhosPosteriores)
+        
+                var proxCima = todasAsCasasDaDDC[0]
+                var proxBaixo = todasAsCasasDaDDB[0]
+                var proxEsquerda = todasAsCasasDEC[0]
+                var proxDireita = todasAsCasasDEB[0]
+        
+                classeFirstCasaPreto(todasAsCasasDaDDC[0], todasAsCasasDaDDB[0], todasAsCasasDEC[0], todasAsCasasDEB[0], proxCima, proxBaixo, proxEsquerda, proxDireita)
+        
+                todasAsCasasDaDDC.forEach(element => {
+        
+                    var atualIndex = todasAsCasasDaDDC.indexOf(element);
+                    var anterior = elementoAnterior(atualIndex, todasAsCasasDaDDC);
+        
+                    if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                        element.classList.add('avaiableMovement')} else {null}
+        
+                    if (anterior != null && anterior.classList.contains('occupiedWhite')){
+                        element.classList.remove('avaiableMovement')} else {null}
+        
+                    if (element.classList.contains('avaiableMovement')) {
+                        element.addEventListener('click', jogadaBispoPreto, {once : true})} 
+        
+                    if (element.classList.contains('occupiedWhite') && element.classList.contains('avaiableMovement')) {
+                        element.classList.add('red')} else {null}
+        
+                    if (element.classList.contains('occupiedBlack')){
+                        element.classList.remove('avaiableMovement')} else {null}
+                });
+        
+                todasAsCasasDaDDB.forEach(element => {
+        
+                    var atualIndex = todasAsCasasDaDDB.indexOf(element);
+                    var anterior = elementoAnterior(atualIndex, todasAsCasasDaDDB);
+        
+                    if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                        element.classList.add('avaiableMovement')} else {null}
+        
+                    if (anterior != null && anterior.classList.contains('occupiedWhite')){
+                        element.classList.remove('avaiableMovement')} else {null}
+        
+                    if (element.classList.contains('avaiableMovement')) {
+                        element.addEventListener('click', jogadaBispoPreto, {once : true})}
+        
+                    if (element.classList.contains('occupiedWhite') && element.classList.contains('avaiableMovement')) {
+                        element.classList.add('red')} else {null}
+        
+                    if (element.classList.contains('occupiedBlack')){
+                        element.classList.remove('avaiableMovement')} else {null}
+                });
+        
+                todasAsCasasDEC.forEach(element => {
+        
+                    var atualIndex = todasAsCasasDEC.indexOf(element);
+                    var anterior = elementoAnterior(atualIndex, todasAsCasasDEC);
+        
+                    if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                        element.classList.add('avaiableMovement')} else {null}
+        
+                    if (anterior != null && anterior.classList.contains('occupiedWhite')){
+                        element.classList.remove('avaiableMovement');} else {null}
+        
+                    if (element.classList.contains('avaiableMovement')) {
+                        element.addEventListener('click', jogadaBispoPreto, {once : true})}
+        
+                    if (element.classList.contains('occupiedWhite') && element.classList.contains('avaiableMovement')) {
+                        element.classList.add('red')} else {null}
+        
+                    if (element.classList.contains('occupiedBlack')){
+                        element.classList.remove('avaiableMovement')} else {null}
+                });
+        
+                todasAsCasasDEB.forEach(element => {
+        
+                    var atualIndex = todasAsCasasDEB.indexOf(element);
+                    var anterior = elementoAnterior(atualIndex, todasAsCasasDEB);
+        
+                    if (anterior != null && anterior.classList.contains('avaiableMovement')){
+                        element.classList.add('avaiableMovement')} else {null}
+        
+                    if (anterior != null && anterior.classList.contains('occupiedWhite') || anterior != null && anterior.classList.contains('occupiedWhite')){
+                        element.classList.remove('avaiableMovement')} else {null}
+        
+                    if (element.classList.contains('avaiableMovement')) {
+                        element.addEventListener('click', jogadaBispoPreto, {once : true})} 
+        
+                    if (element.classList.contains('occupiedWhite') && element.classList.contains('avaiableMovement')) {
+                        element.classList.add('red')} else {null}
+        
+                    if (element.classList.contains('occupiedBlack')){
+                        element.classList.remove('avaiableMovement')} else {null}
+                });
+                if (checarAvaiableMovement().length == 0) {chessboard.addEventListener('click', game, {once : true}), 50} else {null}}
+
+        } else {null}
 }
 
 chessboard.addEventListener('click', game, {once : true})
