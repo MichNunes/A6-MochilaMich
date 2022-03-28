@@ -92,18 +92,18 @@ function whiteView() {
     h8.innerHTML = '♜'
     a7.innerHTML = '♟'
     b7.innerHTML = '♟'
-    c6.innerHTML = '♟'
-    d5.innerHTML = '♟'
-    f3.innerHTML = '♟'
+    c7.innerHTML = '♟'
+    d7.innerHTML = '♟'
+    e7.innerHTML = '♟'
     f7.innerHTML = '♟'
     g7.innerHTML = '♟'
     h7.innerHTML = '♟'
 
-    d4.innerHTML = '♖'
+    a1.innerHTML = '♖'
     b1.innerHTML = '♘'
     c1.innerHTML = '♗'
-    d1.innerHTML = '♔'
-    e1.innerHTML = '♕'
+    d1.innerHTML = '♕'
+    e1.innerHTML = '♔'
     f1.innerHTML = '♗'
     g1.innerHTML = '♘'
     h1.innerHTML = '♖'
@@ -435,10 +435,69 @@ function casasDiagonalEsquerdaBaixo(parameter2) {
     return casasDiagonalEsquerdaBaixoArray;
 }
 
+function cavaloCima(parameter) {
+    var cavaloArray = [];
+    if (!!parameter[15]) {
+        var aux = parameter[15].classList[4].charAt(1);
+        var aux2 = parseInt(aux);
+        var aux3 = parameter[0].classList[4].charAt(1);
+        var aux4 = parseInt(aux3);
+        if((aux4 + 1) == aux2){cavaloArray.push(parameter[15])}}
+    if (!!parameter[6]) {
+        var aux = parameter[6].classList[1].charAt(1);
+        var aux2 = parseInt(aux);
+        var aux3 = parameter[0].classList[1].charAt(1);
+        var aux4 = parseInt(aux3);
+        if((aux4 + 1) == aux2){cavaloArray.push(parameter[6])}}
+    if (!!parameter[10]) {
+        var aux = parameter[10].classList[1].charAt(1);
+        var aux2 = parseInt(aux);
+        var aux3 = parameter[0].classList[1].charAt(1);
+        var aux4 = parseInt(aux3);
+        if((aux4 + 1) == aux2){cavaloArray.push(parameter[10])}}
+    if (!!parameter[17]) {
+        var aux = parameter[17].classList[4].charAt(1);
+        var aux2 = parseInt(aux);
+        var aux3 = parameter[0].classList[4].charAt(1);
+        var aux4 = parseInt(aux3);
+        if((aux4 - 1) == aux2){cavaloArray.push(parameter[17])}}
+    return(cavaloArray)
+}
+
+function cavaloAbaixo(parameter) {
+    var cavaloArray = [];
+    if (!!parameter[10]) {
+        var aux = parameter[10].classList[1].charAt(1);
+        var aux2 = parseInt(aux);
+        var aux3 = parameter[0].classList[1].charAt(1);
+        var aux4 = parseInt(aux3);
+        if((aux4 - 1) == aux2){cavaloArray.push(parameter[10])}}
+    if (!!parameter[17]) {
+        var aux = parameter[17].classList[4].charAt(1);
+        var aux2 = parseInt(aux);
+        var aux3 = parameter[0].classList[4].charAt(1);
+        var aux4 = parseInt(aux3);
+        if((aux4 + 1) == aux2){cavaloArray.push(parameter[17])}}
+    if (!!parameter[15]) {
+        var aux = parameter[15].classList[4].charAt(1);
+        var aux2 = parseInt(aux);
+        var aux3 = parameter[0].classList[4].charAt(1);
+        var aux4 = parseInt(aux3);
+        if((aux4 - 1) == aux2){cavaloArray.push(parameter[15])}}
+    if (!!parameter[6]) {
+        var aux = parameter[6].classList[1].charAt(1);
+        var aux2 = parseInt(aux);
+        var aux3 = parameter[0].classList[1].charAt(1);
+        var aux4 = parseInt(aux3);
+        if((aux4 - 1) == aux2){cavaloArray.push(parameter[6])}}
+    return(cavaloArray)
+}
+
 function torreBranca(parameter) {
 
+
     reiEmCheque = [];
-    var posiçãoSelecionada = parameter.path[0];
+    var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
     var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
@@ -578,7 +637,7 @@ function torreBranca(parameter) {
 function bispoBranco(parameter) {
 
     reiEmCheque = [];
-    var posiçãoSelecionada = parameter.path[0];
+    var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
     var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
@@ -720,7 +779,7 @@ function bispoBranco(parameter) {
 function rainhaBranca(parameter) {
 
     reiEmCheque = [];
-    var posiçãoSelecionada = parameter.path[0];
+    var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
     var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
@@ -989,7 +1048,7 @@ function rainhaBranca(parameter) {
 
 function reiBranco(parameter) {
     reiEmCheque = [];
-    var posiçãoSelecionada = parameter.path[0];
+    var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
     var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
@@ -1006,16 +1065,18 @@ function reiBranco(parameter) {
     var todasAsCasasDEC = casasDiagonalEsquerdaCima(todosOsFilhosAnteriores)
     var todasAsCasasDEB = casasDiagonalEsquerdaBaixo(todosOsFilhosPosteriores)
 
-    if (!!todasAsCasasDaColunaAcima[0]){reiEmCheque.push(todasAsCasasDaColunaAcima[0])}
-    if (!!todasAsCasasDaColunaAbaixo[0]){reiEmCheque.push(todasAsCasasDaColunaAbaixo[0])}
-    if (!!todasAsCasasDaLinhaEsquerda[0]){reiEmCheque.push(todasAsCasasDaLinhaEsquerda[0])}
-    if (!!todasAsCasasDaLinhaDireita[0]){reiEmCheque.push(todasAsCasasDaLinhaDireita[0])}
-    if (!!todasAsCasasDaDDC[0]){reiEmCheque.push(todasAsCasasDaDDC[0])}
-    if (!!todasAsCasasDaDDB[0]){reiEmCheque.push(todasAsCasasDaDDB[0])}
-    if (!!todasAsCasasDEC[0]){reiEmCheque.push(todasAsCasasDEC[0])}
-    if (!!todasAsCasasDEB[0]){reiEmCheque.push(todasAsCasasDEB[0])}
+    var arrayAux5 = [];
 
-    reiEmCheque.forEach(element => {
+    if (!!todasAsCasasDaColunaAcima[0]){arrayAux5.push(todasAsCasasDaColunaAcima[0])}
+    if (!!todasAsCasasDaColunaAbaixo[0]){arrayAux5.push(todasAsCasasDaColunaAbaixo[0])}
+    if (!!todasAsCasasDaLinhaEsquerda[0]){arrayAux5.push(todasAsCasasDaLinhaEsquerda[0])}
+    if (!!todasAsCasasDaLinhaDireita[0]){arrayAux5.push(todasAsCasasDaLinhaDireita[0])}
+    if (!!todasAsCasasDaDDC[0]){arrayAux5.push(todasAsCasasDaDDC[0])}
+    if (!!todasAsCasasDaDDB[0]){arrayAux5.push(todasAsCasasDaDDB[0])}
+    if (!!todasAsCasasDEC[0]){arrayAux5.push(todasAsCasasDEC[0])}
+    if (!!todasAsCasasDEB[0]){arrayAux5.push(todasAsCasasDEB[0])}
+
+    arrayAux5.forEach(element => {
         element.classList.add('avaiableMovement');
 
         if (element.classList.contains('occupiedWhite')){
@@ -1025,6 +1086,83 @@ function reiBranco(parameter) {
         if (element.classList.contains('occupiedBlack')){
             element.classList.add('target')
         }
+
+        if (element.classList.contains('avaiableMovement')){
+            reiEmCheque.push(element)
+        }
+    });
+    return reiEmCheque;
+}
+
+function peaoBranco(parameter) {
+
+    reiEmCheque = [];
+    var posiçãoSelecionada = parameter
+    var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
+    
+    var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
+
+    posiçãoSelecionada.classList.add('onFocus')
+    
+    var todasAsCasasDaColunaAcima = casasColunaAcima(todosOsFilhosAnteriores)
+    var todasAsCasasDaDDC = casasDiagonalDireitaCima(todosOsFilhosAnteriores)
+    var todasAsCasasDEC = casasDiagonalEsquerdaCima(todosOsFilhosAnteriores)
+
+    var casa1 = todasAsCasasDaColunaAcima[0];
+    var casa2 = todasAsCasasDaColunaAcima[1];
+    var casaDD = todasAsCasasDaDDC[0]
+    var casaDE = todasAsCasasDEC[0]
+
+    if (posiçãoSelecionada.classList.contains('fm')){
+        if (casa2.classList.contains('occupiedBlack') || casa2.classList.contains('occupiedWhite')){}
+        else {casa2.classList.add('avaiableMovement'); reiEmCheque.push(casa2)}
+        if (casa1.classList.contains('occupiedBlack') || casa1.classList.contains('occupiedWhite')){
+            casa2.classList.remove('avaiableMovement')}
+        else {casa1.classList.add('avaiableMovement'); reiEmCheque.push(casa1)}
+        if (!!casaDD && casaDD.classList.contains('occupiedBlack')){casaDD.classList.add('target'); casaDD.classList.add('avaiableMovement'); reiEmCheque.push(casaDD)}
+        if (!!casaDE && casaDE.classList.contains('occupiedBlack')){casaDE.classList.add('target'); casaDE.classList.add('avaiableMovement'); reiEmCheque.push(casaDE)}
+    } else {
+        if (casa1.classList.contains('occupiedBlack') || casa1.classList.contains('occupiedWhite')){}
+        else {casa1.classList.add('avaiableMovement'); reiEmCheque.push(casa1)}
+        if (!!casaDD && casaDD.classList.contains('occupiedBlack')){casaDD.classList.add('target'); casaDD.classList.add('avaiableMovement'); reiEmCheque.push(casaDD)}
+        if (!!casaDE && casaDE.classList.contains('occupiedBlack')){casaDE.classList.add('target'); casaDE.classList.add('avaiableMovement'); reiEmCheque.push(casaDE)}
+    }
+    return reiEmCheque;
+}
+
+function cavaloBranco(parameter) {
+
+    reiEmCheque = [];
+    var posiçãoSelecionada = parameter
+    var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
+    
+    var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
+    var todosOsFilhosPosteriores = filhosPosteriores(indexPosiçãoSelecionada)
+
+    posiçãoSelecionada.classList.add('onFocus')
+    
+    var possibilidadesAcima = cavaloCima(todosOsFilhosAnteriores)
+    var possibilidadesAbaixo = cavaloAbaixo(todosOsFilhosPosteriores)
+
+    var possibilidades = [];
+    possibilidadesAcima.forEach(element => {
+        possibilidades.push(element)
+    });
+    possibilidadesAbaixo.forEach(element => {
+        possibilidades.push(element)
+    });
+
+    possibilidades.forEach(element => {
+        element.classList.add('avaiableMovement')
+        if (element.classList.contains('occupiedWhite')){
+            element.classList.remove('avaiableMovement')
+        }
+        if (element.classList.contains('occupiedBlack')){
+            element.classList.add('target')
+        }
+        if (element.classList.contains('avaiableMovement')){
+            reiEmCheque.push(element)
+        }
     });
     return reiEmCheque;
 }
@@ -1032,7 +1170,7 @@ function reiBranco(parameter) {
 function torrePreta(parameter) {
 
     reiEmCheque = [];
-    var posiçãoSelecionada = parameter.path[0];
+    var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
     var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
@@ -1172,7 +1310,7 @@ function torrePreta(parameter) {
 function bispoPreto(parameter) {
 
     reiEmCheque = [];
-    var posiçãoSelecionada = parameter.path[0];
+    var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
     var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
@@ -1314,7 +1452,7 @@ function bispoPreto(parameter) {
 function rainhaPreta(parameter) {
 
     reiEmCheque = [];
-    var posiçãoSelecionada = parameter.path[0];
+    var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
     var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
@@ -1584,7 +1722,7 @@ function rainhaPreta(parameter) {
 function reiPreto(parameter) {
 
     reiEmCheque = [];
-    var posiçãoSelecionada = parameter.path[0];
+    var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
     var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
@@ -1601,16 +1739,18 @@ function reiPreto(parameter) {
     var todasAsCasasDEC = casasDiagonalEsquerdaCima(todosOsFilhosAnteriores)
     var todasAsCasasDEB = casasDiagonalEsquerdaBaixo(todosOsFilhosPosteriores)
 
-    if (!!todasAsCasasDaColunaAcima[0]){reiEmCheque.push(todasAsCasasDaColunaAcima[0])}
-    if (!!todasAsCasasDaColunaAbaixo[0]){reiEmCheque.push(todasAsCasasDaColunaAbaixo[0])}
-    if (!!todasAsCasasDaLinhaEsquerda[0]){reiEmCheque.push(todasAsCasasDaLinhaEsquerda[0])}
-    if (!!todasAsCasasDaLinhaDireita[0]){reiEmCheque.push(todasAsCasasDaLinhaDireita[0])}
-    if (!!todasAsCasasDaDDC[0]){reiEmCheque.push(todasAsCasasDaDDC[0])}
-    if (!!todasAsCasasDaDDB[0]){reiEmCheque.push(todasAsCasasDaDDB[0])}
-    if (!!todasAsCasasDEC[0]){reiEmCheque.push(todasAsCasasDEC[0])}
-    if (!!todasAsCasasDEB[0]){reiEmCheque.push(todasAsCasasDEB[0])}
+    var arrayAux5 = [];
 
-    reiEmCheque.forEach(element => {
+    if (!!todasAsCasasDaColunaAcima[0]){arrayAux5.push(todasAsCasasDaColunaAcima[0])}
+    if (!!todasAsCasasDaColunaAbaixo[0]){arrayAux5.push(todasAsCasasDaColunaAbaixo[0])}
+    if (!!todasAsCasasDaLinhaEsquerda[0]){arrayAux5.push(todasAsCasasDaLinhaEsquerda[0])}
+    if (!!todasAsCasasDaLinhaDireita[0]){arrayAux5.push(todasAsCasasDaLinhaDireita[0])}
+    if (!!todasAsCasasDaDDC[0]){arrayAux5.push(todasAsCasasDaDDC[0])}
+    if (!!todasAsCasasDaDDB[0]){arrayAux5.push(todasAsCasasDaDDB[0])}
+    if (!!todasAsCasasDEC[0]){arrayAux5.push(todasAsCasasDEC[0])}
+    if (!!todasAsCasasDEB[0]){arrayAux5.push(todasAsCasasDEB[0])}
+
+    arrayAux5.forEach(element => {
         element.classList.add('avaiableMovement');
 
         if (element.classList.contains('occupiedBlack')){
@@ -1620,8 +1760,98 @@ function reiPreto(parameter) {
         if (element.classList.contains('occupiedWhite')){
             element.classList.add('target')
         }
+
+        if (element.classList.contains('avaiableMovement')){
+            reiEmCheque.push(element)
+        }
     });
     return reiEmCheque;
+}
+
+function peaoPreto(parameter) {
+    
+    reiEmCheque = [];
+    var posiçãoSelecionada = parameter
+    var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
+    
+    var todosOsFilhosPosteriores = filhosPosteriores(indexPosiçãoSelecionada)
+
+    posiçãoSelecionada.classList.add('onFocus')
+    
+    var todasAsCasasDaColunaAbaixo = casasColunaAbaixo(todosOsFilhosPosteriores)
+    var todasAsCasasDaDDB = casasDiagonalDireitaBaixo(todosOsFilhosPosteriores)
+    var todasAsCasasDEB = casasDiagonalEsquerdaBaixo(todosOsFilhosPosteriores)
+
+    var casa1 = todasAsCasasDaColunaAbaixo[0];
+    var casa2 = todasAsCasasDaColunaAbaixo[1];
+    var casaDD = todasAsCasasDaDDB[0]
+    var casaDE = todasAsCasasDEB[0]
+
+    if (posiçãoSelecionada.classList.contains('fm')){
+        if (casa2.classList.contains('occupiedBlack') || casa2.classList.contains('occupiedWhite')){}
+        else {casa2.classList.add('avaiableMovement'); reiEmCheque.push(casa2)}
+        if (casa1.classList.contains('occupiedBlack') || casa1.classList.contains('occupiedWhite')){
+            casa2.classList.remove('avaiableMovement')}
+        else {casa1.classList.add('avaiableMovement'); reiEmCheque.push(casa1)}
+        if (!!casaDD && casaDD.classList.contains('occupiedWhite')){casaDD.classList.add('target'); casaDD.classList.add('avaiableMovement'); reiEmCheque.push(casaDD)}
+        if (!!casaDE && casaDE.classList.contains('occupiedWhite')){casaDE.classList.add('target'); casaDE.classList.add('avaiableMovement'); reiEmCheque.push(casaDE)}
+    } else {
+        if (casa1.classList.contains('occupiedBlack') || casa1.classList.contains('occupiedWhite')){}
+        else {casa1.classList.add('avaiableMovement'); reiEmCheque.push(casa1)}
+        if (!!casaDD && casaDD.classList.contains('occupiedWhite')){casaDD.classList.add('target'); casaDD.classList.add('avaiableMovement'); reiEmCheque.push(casaDD)}
+        if (!!casaDE && casaDE.classList.contains('occupiedWhite')){casaDE.classList.add('target'); casaDE.classList.add('avaiableMovement'); reiEmCheque.push(casaDE)}
+    }
+    return reiEmCheque;
+}
+
+function cavaloPreto(parameter) {
+
+    reiEmCheque = [];
+    var posiçãoSelecionada = parameter
+    var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
+    
+    var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
+    var todosOsFilhosPosteriores = filhosPosteriores(indexPosiçãoSelecionada)
+
+    posiçãoSelecionada.classList.add('onFocus')
+    
+    var possibilidadesAcima = cavaloCima(todosOsFilhosAnteriores)
+    var possibilidadesAbaixo = cavaloAbaixo(todosOsFilhosPosteriores)
+
+    var possibilidades = [];
+    possibilidadesAcima.forEach(element => {
+        possibilidades.push(element)
+    });
+    possibilidadesAbaixo.forEach(element => {
+        possibilidades.push(element)
+    });
+
+    possibilidades.forEach(element => {
+        element.classList.add('avaiableMovement')
+        if (element.classList.contains('occupiedBlack')){
+            element.classList.remove('avaiableMovement')
+        }
+        if (element.classList.contains('occupiedWhite')){
+            element.classList.add('target')
+        }
+        if (element.classList.contains('avaiableMovement')){
+            reiEmCheque.push(element)
+        }
+    });
+    return reiEmCheque;
+}
+
+function reiBrancoEmCheque() {
+    var arrayVazio = [];
+    posicao.forEach(element => {
+        if (element.classList.contains('occupiedWhite')){
+            var aux = element.innerHTML;
+            const funcaoCerta = objetoSelecionada[aux]
+            var aux2 = funcaoCerta(element)
+            arrayVazio.push(aux2)
+        }
+    });
+    return arrayVazio;
 }
 
 const objetoSelecionada = {
@@ -1629,14 +1859,14 @@ const objetoSelecionada = {
     '♜' : (elemento) => {var $ = torrePreta(elemento); return $},
     '♗' : (elemento) => {var $ = bispoBranco(elemento); return $},
     '♝' : (elemento) => {var $ = bispoPreto(elemento); return $},
-    '♘' : (elemento) => {var $ = torreBranca(elemento); return $},
-    '♞' : (elemento) => {var $ = torreBranca(elemento); return $},
+    '♘' : (elemento) => {var $ = cavaloBranco(elemento); return $},
+    '♞' : (elemento) => {var $ = cavaloPreto(elemento); return $},
     '♕' : (elemento) => {var $ = rainhaBranca(elemento); return $},
     '♛' : (elemento) => {var $ = rainhaPreta(elemento); return $},
     '♔' : (elemento) => {var $ = reiBranco(elemento); return $},
     '♚' : (elemento) => {var $ = reiPreto(elemento); return $},
-    '♙' : (elemento) => {var $ = torreBranca(elemento); return $},
-    '♟' : (elemento) => {var $ = torreBranca(elemento); return $}
+    '♙' : (elemento) => {var $ = peaoBranco(elemento); return $},
+    '♟' : (elemento) => {var $ = peaoPreto(elemento); return $}
 }
 
 function game(elemento) {
@@ -1646,19 +1876,18 @@ function game(elemento) {
     if (chessboard.classList.contains('turnoBranco') && pecasBrancas.includes(textoElemento)){
         if (chequeRei == false) {
             const funcaoCerta = objetoSelecionada[textoElemento]
-            var element = elemento
-            funcaoCerta(element)
+            funcaoCerta(elemento.path[0])
         }
         if (chequeRei == true) {
-            console.log('reiemcheque')
+            var aux = reiBrancoEmCheque()
+            console.log(aux)
         }
     }
 
     if (chessboard.classList.contains('turnoPreto') && pecasPretas.includes(textoElemento)){
         if (chequeRei == false) {
             const funcaoCerta = objetoSelecionada[textoElemento]
-            var element = elemento
-            funcaoCerta(element)
+            funcaoCerta(elemento.path[0])
         }
         if (chequeRei == true) {
             console.log('reiemcheque')
@@ -1729,7 +1958,9 @@ tabuleiro.addEventListener("drop", function(event) {
         
         event.target.innerHTML = $
 
-        dragged.innerHTML = '';
+        dragged.innerHTML = ''
+        dragged.classList.remove('fm');
+        event.target.classList.remove('fm')
 
         if (chessboard.classList.contains('turnoBranco')){
             chessboard.classList.remove('turnoBranco');
@@ -1743,15 +1974,14 @@ tabuleiro.addEventListener("drop", function(event) {
     organizarClasses()
 
     const funcaoCerta = objetoSelecionada[$]
-    var element = event
-    var anyChecks = funcaoCerta(element)
+    var anyChecks = funcaoCerta(event.target)
 
-    // anyChecks.forEach(element => {
-    //     if (element.classList.contains('reiPreto') || element.classList.contains('reiBranco')){
-    //         element.classList.add('check')
-    //         // chequeRei = true;
-    //     }
-    // });
+    anyChecks.forEach(element => {
+        if (element.classList.contains('reiPreto') || element.classList.contains('reiBranco')){
+            element.classList.add('check')
+            chequeRei = true;
+        }
+    });
 
     removerClassList()
     
