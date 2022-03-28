@@ -1,8 +1,12 @@
 var tabuleiro = document.getElementById('chessboard');
 var posicao = Array.from(tabuleiro.children);
+var pecasBrancas = ['♖', '♘', '♗', '♔', '♕', '♙'];
+var pecasPretas = ['♜', '♞', '♝', '♛', '♚', '♟'];
 var brancosFora = [];
 var pretosFora = [];
 var reiEmCheque = [];
+var chequeRei = false;
+var dragged;
 
 //linha8
 var a8 = posicao[0];
@@ -88,9 +92,9 @@ function whiteView() {
     h8.innerHTML = '♜'
     a7.innerHTML = '♟'
     b7.innerHTML = '♟'
-    c7.innerHTML = '♟'
+    c6.innerHTML = '♟'
     d5.innerHTML = '♟'
-    e7.innerHTML = '♟'
+    f3.innerHTML = '♟'
     f7.innerHTML = '♟'
     g7.innerHTML = '♟'
     h7.innerHTML = '♟'
@@ -116,15 +120,43 @@ whiteView()
 
 function organizarClasses() {
     posicao.forEach(element => {
-    var aux = element
-    if (aux.innerText == '♜' || aux.innerText == "♞" || aux.innerText == "♝" || aux.innerText == "♛" || aux.innerText == "♚" || aux.innerText == "♟") {
-        aux.classList.add('occupiedBlack')} else {aux.classList.remove('occupiedBlack')}
-    if (aux.innerText == '♖' || aux.innerText == "♘" || aux.innerText == "♗" || aux.innerText == "♕" || aux.innerText == "♔" || aux.innerText == "♙") {
-        aux.classList.add('occupiedWhite')} else {aux.classList.remove('occupiedWhite')}
+    var $ = element.innerText
+    var $$ = element.classList
+    if ($ == '♜' || $ == "♞" || $ == "♝" || $ == "♛" || $ == "♚" || $ == "♟") {
+        $$.add('occupiedBlack')} else {$$.remove('occupiedBlack')}
+    if ($ == '♖' || $ == "♘" || $ == "♗" || $ == "♕" || $ == "♔" || $ == "♙") {
+        $$.add('occupiedWhite')} else {$$.remove('occupiedWhite')}
+    if ($$.contains("reiBranco")) {
+        $$.remove('reiBranco')} else {null}
+    if ($$.contains("reiPreto")) {
+        $$.remove('reiPreto')} else {null}
+    if ($ == "♔") {
+        $$.add('reiBranco')} else {null}
+    if ($ == "♚") {
+        $$.add('reiPreto')} else {null}
 })};
 organizarClasses()
 
+function turnos() {
+
+    if (chessboard.classList.contains('turnoBranco')){
+        posicao.forEach(element => {
+            var aux = element
+            if (aux.innerText == '♖' || aux.innerText == "♘" || aux.innerText == "♗" || aux.innerText == "♕" || aux.innerText == "♔" || aux.innerText == "♙") {
+                aux.draggable = true} else {aux.draggable = false}})
+    }
+    
+    if (chessboard.classList.contains('turnoPreto')){
+        posicao.forEach(element => {
+            var aux = element
+            if (aux.innerText == '♜' || aux.innerText == "♞" || aux.innerText == "♝" || aux.innerText == "♛" || aux.innerText == "♚" || aux.innerText == "♟") {
+                aux.draggable = true} else {aux.draggable = false}})
+    }
+}
+turnos()
+
 function removerClassList() {
+
     posicao.forEach(element => {
         element.classList.remove('avaiableMovement');
         element.classList.remove('onFocus')
@@ -267,11 +299,147 @@ function casasLinhaDireita(parameter) {
     return casasDireitaArray;
 }
 
+function casasDiagonalDireitaCima(parameter1) {
+    var casasDiagonalDiretaCimaArray = []
+
+    if (!!parameter1[(7 * 1)]) {
+        if (parameter1[(7 * 1)].classList[2] == parameter1[0].classList[2]){
+        var aux1 = parameter1[(7 * 1)];
+        casasDiagonalDiretaCimaArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter1[(7 * 2)]) {
+        if (parameter1[(7 * 2)].classList[2] == parameter1[0].classList[2]){
+        var aux1 = parameter1[(7 * 2)];
+        casasDiagonalDiretaCimaArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter1[(7 * 3)]) {
+        if (parameter1[(7 * 3)].classList[2] == parameter1[0].classList[2]){
+        var aux1 = parameter1[(7 * 3)];
+        casasDiagonalDiretaCimaArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter1[(7 * 4)]) {
+        if (parameter1[(7 * 4)].classList[2] == parameter1[0].classList[2]){
+        var aux1 = parameter1[(7 * 4)];
+        casasDiagonalDiretaCimaArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter1[(7 * 5)]) {
+        if (parameter1[(7 * 5)].classList[2] == parameter1[0].classList[2]){
+        var aux1 = parameter1[(7 * 5)];
+        casasDiagonalDiretaCimaArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter1[(7 * 6)]) {
+        if (parameter1[(7 * 6)].classList[2] == parameter1[0].classList[2]){
+        var aux1 = parameter1[(7 * 6)];
+        casasDiagonalDiretaCimaArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter1[(7 * 7)]) {
+        if (parameter1[(7 * 7)].classList[2] == parameter1[0].classList[2]){
+        var aux1 = parameter1[(7 * 7)];
+        casasDiagonalDiretaCimaArray.push(aux1)} else {null}} else {null}
+    return casasDiagonalDiretaCimaArray;
+}
+
+function casasDiagonalDireitaBaixo(parameter2) {
+    var casasDiagonalDiretaBaixoArray = []
+
+    if (!!parameter2[(7 * 1)]) {
+        if (parameter2[(7 * 1)].classList[2] == parameter2[0].classList[2]){
+        var aux1 = parameter2[(7 * 1)];
+        casasDiagonalDiretaBaixoArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter2[(7 * 2)]) {
+        if (parameter2[(7 * 2)].classList[2] == parameter2[0].classList[2]){
+        var aux1 = parameter2[(7 * 2)];
+        casasDiagonalDiretaBaixoArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter2[(7 * 3)]) {
+        if (parameter2[(7 * 3)].classList[2] == parameter2[0].classList[2]){
+        var aux1 = parameter2[(7 * 3)];
+        casasDiagonalDiretaBaixoArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter2[(7 * 4)]) {
+        if (parameter2[(7 * 4)].classList[2] == parameter2[0].classList[2]){
+        var aux1 = parameter2[(7 * 4)];
+        casasDiagonalDiretaBaixoArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter2[(7 * 5)]) {
+        if (parameter2[(7 * 5)].classList[2] == parameter2[0].classList[2]){
+        var aux1 = parameter2[(7 * 5)];
+        casasDiagonalDiretaBaixoArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter2[(7 * 6)]) {
+        if (parameter2[(7 * 6)].classList[2] == parameter2[0].classList[2]){
+        var aux1 = parameter2[(7 * 6)];
+        casasDiagonalDiretaBaixoArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter2[(7 * 7)]) {
+        if (parameter2[(7 * 7)].classList[2] == parameter2[0].classList[2]){
+        var aux1 = parameter2[(7 * 7)];
+        casasDiagonalDiretaBaixoArray.push(aux1)} else {null}} else {null} 
+    return casasDiagonalDiretaBaixoArray;
+}
+
+function casasDiagonalEsquerdaCima(parameter1) {
+    var casasDiagonalEsquerdaCimaArray = []
+
+    if (!!parameter1[(9 * 1)]) {
+        if (parameter1[(9 * 1)].classList[3] == parameter1[0].classList[3]){
+        var aux1 = parameter1[(9 * 1)];
+        casasDiagonalEsquerdaCimaArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter1[(9 * 2)]) {
+        if (parameter1[(9 * 2)].classList[3] == parameter1[0].classList[3]){
+        var aux1 = parameter1[(9 * 2)];
+        casasDiagonalEsquerdaCimaArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter1[(9 * 3)]) {
+        if (parameter1[(9 * 3)].classList[3] == parameter1[0].classList[3]){
+        var aux1 = parameter1[(9 * 3)];
+        casasDiagonalEsquerdaCimaArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter1[(9 * 4)]) {
+        if (parameter1[(9 * 4)].classList[3] == parameter1[0].classList[3]){
+        var aux1 = parameter1[(9 * 4)];
+        casasDiagonalEsquerdaCimaArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter1[(9 * 5)]) {
+        if (parameter1[(9 * 5)].classList[3] == parameter1[0].classList[3]){
+        var aux1 = parameter1[(9 * 5)];
+        casasDiagonalEsquerdaCimaArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter1[(9 * 6)]) {
+        if (parameter1[(9 * 6)].classList[3] == parameter1[0].classList[3]){
+        var aux1 = parameter1[(9 * 6)];
+        casasDiagonalEsquerdaCimaArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter1[(9 * 7)]) {
+        if (parameter1[(9 * 7)].classList[3] == parameter1[0].classList[3]){
+        var aux1 = parameter1[(9 * 7)];
+        casasDiagonalEsquerdaCimaArray.push(aux1)} else {null}} else {null}
+    return casasDiagonalEsquerdaCimaArray;
+}
+
+function casasDiagonalEsquerdaBaixo(parameter2) {
+    var casasDiagonalEsquerdaBaixoArray = []
+
+    if (!!parameter2[(9 * 1)]) {
+        if (parameter2[(9 * 1)].classList[3] == parameter2[0].classList[3]){
+        var aux1 = parameter2[(9 * 1)];
+        casasDiagonalEsquerdaBaixoArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter2[(9 * 2)]) {
+        if (parameter2[(9 * 2)].classList[3] == parameter2[0].classList[3]){
+        var aux1 = parameter2[(9 * 2)];
+        casasDiagonalEsquerdaBaixoArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter2[(9 * 3)]) {
+        if (parameter2[(9 * 3)].classList[3] == parameter2[0].classList[3]){
+        var aux1 = parameter2[(9 * 3)];
+        casasDiagonalEsquerdaBaixoArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter2[(9 * 4)]) {
+        if (parameter2[(9 * 4)].classList[3] == parameter2[0].classList[3]){
+        var aux1 = parameter2[(9 * 4)];
+        casasDiagonalEsquerdaBaixoArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter2[(9 * 5)]) {
+        if (parameter2[(9 * 5)].classList[3] == parameter2[0].classList[3]){
+        var aux1 = parameter2[(9 * 5)];
+        casasDiagonalEsquerdaBaixoArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter2[(9 * 6)]) {
+        if (parameter2[(9 * 6)].classList[3] == parameter2[0].classList[3]){
+        var aux1 = parameter2[(9 * 6)];
+        casasDiagonalEsquerdaBaixoArray.push(aux1)} else {null}} else {null} 
+    if (!!parameter2[(9 * 7)]) {
+        if (parameter2[(9 * 7)].classList[3] == parameter2[0].classList[3]){
+        var aux1 = parameter2[(9 * 7)];
+        casasDiagonalEsquerdaBaixoArray.push(aux1)} else {null}} else {null} 
+    return casasDiagonalEsquerdaBaixoArray;
+}
+
 function torreBranca(parameter) {
 
     reiEmCheque = [];
-    posiçãoSelecionada = parameter.path[0];
-    indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
+    var posiçãoSelecionada = parameter.path[0];
+    var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
     var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
     var todosOsFilhosPosteriores = filhosPosteriores(indexPosiçãoSelecionada)
@@ -407,12 +575,1095 @@ function torreBranca(parameter) {
     return reiEmCheque;
 }
 
+function bispoBranco(parameter) {
 
+    reiEmCheque = [];
+    var posiçãoSelecionada = parameter.path[0];
+    var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
+    
+    var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
+    var todosOsFilhosPosteriores = filhosPosteriores(indexPosiçãoSelecionada)
+
+    posiçãoSelecionada.classList.add('onFocus')
+    
+        var todasAsCasasDaDDC = casasDiagonalDireitaCima(todosOsFilhosAnteriores)
+        var todasAsCasasDaDDB = casasDiagonalDireitaBaixo(todosOsFilhosPosteriores)
+        var todasAsCasasDEC = casasDiagonalEsquerdaCima(todosOsFilhosAnteriores)
+        var todasAsCasasDEB = casasDiagonalEsquerdaBaixo(todosOsFilhosPosteriores)
+    
+        todasAsCasasDaDDC.forEach(element => {
+    
+                var atualIndex = todasAsCasasDaDDC.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDaDDC);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+        });
+    
+        todasAsCasasDaDDB.forEach(element => {
+    
+                var atualIndex = todasAsCasasDaDDB.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDaDDB);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+        });
+    
+        todasAsCasasDEC.forEach(element => {
+    
+                var atualIndex = todasAsCasasDEC.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDEC);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+        });
+    
+        todasAsCasasDEB.forEach(element => {
+    
+                var atualIndex = todasAsCasasDEB.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDEB);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+        });
+        return reiEmCheque;
+}
+
+function rainhaBranca(parameter) {
+
+    reiEmCheque = [];
+    var posiçãoSelecionada = parameter.path[0];
+    var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
+    
+    var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
+    var todosOsFilhosPosteriores = filhosPosteriores(indexPosiçãoSelecionada)
+
+    posiçãoSelecionada.classList.add('onFocus')
+    
+    var todasAsCasasDaColunaAcima = casasColunaAcima(todosOsFilhosAnteriores)
+    var todasAsCasasDaColunaAbaixo = casasColunaAbaixo(todosOsFilhosPosteriores)
+    var todasAsCasasDaLinhaEsquerda = casasLinhaEsquerda(todosOsFilhosAnteriores)
+    var todasAsCasasDaLinhaDireita = casasLinhaDireita(todosOsFilhosPosteriores)
+    var todasAsCasasDaDDC = casasDiagonalDireitaCima(todosOsFilhosAnteriores)
+    var todasAsCasasDaDDB = casasDiagonalDireitaBaixo(todosOsFilhosPosteriores)
+    var todasAsCasasDEC = casasDiagonalEsquerdaCima(todosOsFilhosAnteriores)
+    var todasAsCasasDEB = casasDiagonalEsquerdaBaixo(todosOsFilhosPosteriores)
+       
+    todasAsCasasDaColunaAcima.forEach(element => {
+
+            var atualIndex = todasAsCasasDaColunaAcima.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaColunaAcima);
+            element.classList.add('avaiableMovement')
+    
+            if (element.classList.contains('occupiedBlack')) {
+                element.classList.add('target')
+                element.classList.add('LA')
+            }
+    
+            if (element.classList.contains('occupiedWhite')) {
+                element.classList.remove('avaiableMovement')
+                element.classList.add('LA')
+            }
+    
+            if (anterior != null && anterior.classList.contains('LA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (anterior != null && anterior.classList.contains('NA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (element.classList.contains('avaiableMovement')) {
+                reiEmCheque.push(element)
+            }
+    });
+
+    todasAsCasasDaColunaAbaixo.forEach(element => {
+
+            var atualIndex = todasAsCasasDaColunaAbaixo.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaColunaAbaixo);
+            element.classList.add('avaiableMovement')
+    
+            if (element.classList.contains('occupiedBlack')) {
+                element.classList.add('target')
+                element.classList.add('LA')
+            }
+    
+            if (element.classList.contains('occupiedWhite')) {
+                element.classList.remove('avaiableMovement')
+                element.classList.add('LA')
+            }
+    
+            if (anterior != null && anterior.classList.contains('LA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (anterior != null && anterior.classList.contains('NA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (element.classList.contains('avaiableMovement')) {
+                reiEmCheque.push(element)
+            }
+    });
+
+    todasAsCasasDaLinhaEsquerda.forEach(element => {
+
+            var atualIndex = todasAsCasasDaLinhaEsquerda.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaLinhaEsquerda);
+            element.classList.add('avaiableMovement')
+    
+            if (element.classList.contains('occupiedBlack')) {
+                element.classList.add('target')
+                element.classList.add('LA')
+            }
+    
+            if (element.classList.contains('occupiedWhite')) {
+                element.classList.remove('avaiableMovement')
+                element.classList.add('LA')
+            }
+    
+            if (anterior != null && anterior.classList.contains('LA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (anterior != null && anterior.classList.contains('NA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (element.classList.contains('avaiableMovement')) {
+                reiEmCheque.push(element)
+            }
+    });
+
+    todasAsCasasDaLinhaDireita.forEach(element => {
+
+            var atualIndex = todasAsCasasDaLinhaDireita.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaLinhaDireita);
+            element.classList.add('avaiableMovement')
+    
+            if (element.classList.contains('occupiedBlack')) {
+                element.classList.add('target')
+                element.classList.add('LA')
+            }
+    
+            if (element.classList.contains('occupiedWhite')) {
+                element.classList.remove('avaiableMovement')
+                element.classList.add('LA')
+            }
+    
+            if (anterior != null && anterior.classList.contains('LA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (anterior != null && anterior.classList.contains('NA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (element.classList.contains('avaiableMovement')) {
+                reiEmCheque.push(element)
+            }
+    });
+
+    todasAsCasasDaDDC.forEach(element => {
+    
+                var atualIndex = todasAsCasasDaDDC.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDaDDC);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+    });
+    
+    todasAsCasasDaDDB.forEach(element => {
+    
+                var atualIndex = todasAsCasasDaDDB.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDaDDB);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+    });
+    
+    todasAsCasasDEC.forEach(element => {
+    
+                var atualIndex = todasAsCasasDEC.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDEC);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+    });
+    
+    todasAsCasasDEB.forEach(element => {
+    
+                var atualIndex = todasAsCasasDEB.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDEB);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+    });
+    return reiEmCheque;
+}
+
+function reiBranco(parameter) {
+    reiEmCheque = [];
+    var posiçãoSelecionada = parameter.path[0];
+    var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
+    
+    var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
+    var todosOsFilhosPosteriores = filhosPosteriores(indexPosiçãoSelecionada)
+
+    posiçãoSelecionada.classList.add('onFocus')
+    
+    var todasAsCasasDaColunaAcima = casasColunaAcima(todosOsFilhosAnteriores)
+    var todasAsCasasDaColunaAbaixo = casasColunaAbaixo(todosOsFilhosPosteriores)
+    var todasAsCasasDaLinhaEsquerda = casasLinhaEsquerda(todosOsFilhosAnteriores)
+    var todasAsCasasDaLinhaDireita = casasLinhaDireita(todosOsFilhosPosteriores)
+    var todasAsCasasDaDDC = casasDiagonalDireitaCima(todosOsFilhosAnteriores)
+    var todasAsCasasDaDDB = casasDiagonalDireitaBaixo(todosOsFilhosPosteriores)
+    var todasAsCasasDEC = casasDiagonalEsquerdaCima(todosOsFilhosAnteriores)
+    var todasAsCasasDEB = casasDiagonalEsquerdaBaixo(todosOsFilhosPosteriores)
+
+    if (!!todasAsCasasDaColunaAcima[0]){reiEmCheque.push(todasAsCasasDaColunaAcima[0])}
+    if (!!todasAsCasasDaColunaAbaixo[0]){reiEmCheque.push(todasAsCasasDaColunaAbaixo[0])}
+    if (!!todasAsCasasDaLinhaEsquerda[0]){reiEmCheque.push(todasAsCasasDaLinhaEsquerda[0])}
+    if (!!todasAsCasasDaLinhaDireita[0]){reiEmCheque.push(todasAsCasasDaLinhaDireita[0])}
+    if (!!todasAsCasasDaDDC[0]){reiEmCheque.push(todasAsCasasDaDDC[0])}
+    if (!!todasAsCasasDaDDB[0]){reiEmCheque.push(todasAsCasasDaDDB[0])}
+    if (!!todasAsCasasDEC[0]){reiEmCheque.push(todasAsCasasDEC[0])}
+    if (!!todasAsCasasDEB[0]){reiEmCheque.push(todasAsCasasDEB[0])}
+
+    reiEmCheque.forEach(element => {
+        element.classList.add('avaiableMovement');
+
+        if (element.classList.contains('occupiedWhite')){
+            element.classList.remove('avaiableMovement')
+        }
+
+        if (element.classList.contains('occupiedBlack')){
+            element.classList.add('target')
+        }
+    });
+    return reiEmCheque;
+}
+
+function torrePreta(parameter) {
+
+    reiEmCheque = [];
+    var posiçãoSelecionada = parameter.path[0];
+    var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
+    
+    var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
+    var todosOsFilhosPosteriores = filhosPosteriores(indexPosiçãoSelecionada)
+
+    posiçãoSelecionada.classList.add('onFocus')
+
+    var todasAsCasasDaColunaAcima = casasColunaAcima(todosOsFilhosAnteriores)
+    var todasAsCasasDaColunaAbaixo = casasColunaAbaixo(todosOsFilhosPosteriores)
+    var todasAsCasasDaLinhaEsquerda = casasLinhaEsquerda(todosOsFilhosAnteriores)
+    var todasAsCasasDaLinhaDireita = casasLinhaDireita(todosOsFilhosPosteriores)
+
+    todasAsCasasDaColunaAcima.forEach(element => {
+
+        var atualIndex = todasAsCasasDaColunaAcima.indexOf(element);
+        var anterior = elementoAnterior(atualIndex, todasAsCasasDaColunaAcima);
+        element.classList.add('avaiableMovement')
+
+        if (element.classList.contains('occupiedWhite')) {
+            element.classList.add('target')
+            element.classList.add('LA')
+        }
+
+        if (element.classList.contains('occupiedBlack')) {
+            element.classList.remove('avaiableMovement')
+            element.classList.add('LA')
+        }
+
+        if (anterior != null && anterior.classList.contains('LA')) {
+            element.classList.remove('target')
+            element.classList.remove('avaiableMovement');
+            element.classList.add('NA');}
+
+        if (anterior != null && anterior.classList.contains('NA')) {
+            element.classList.remove('target')
+            element.classList.remove('avaiableMovement');
+            element.classList.add('NA');}
+
+        if (element.classList.contains('avaiableMovement')) {
+            reiEmCheque.push(element)
+        }
+    })
+
+    todasAsCasasDaColunaAbaixo.forEach(element => {
+    
+        var atualIndex = todasAsCasasDaColunaAbaixo.indexOf(element);
+        var anterior = elementoAnterior(atualIndex, todasAsCasasDaColunaAbaixo);
+        element.classList.add('avaiableMovement')
+
+        if (element.classList.contains('occupiedWhite')) {
+            element.classList.add('target')
+            element.classList.add('LA')
+        }
+
+        if (element.classList.contains('occupiedBlack')) {
+            element.classList.remove('avaiableMovement')
+            element.classList.add('LA')
+        }
+
+        if (anterior != null && anterior.classList.contains('LA')) {
+            element.classList.remove('target')
+            element.classList.remove('avaiableMovement');
+            element.classList.add('NA');}
+
+        if (anterior != null && anterior.classList.contains('NA')) {
+            element.classList.remove('target')
+            element.classList.remove('avaiableMovement');
+            element.classList.add('NA');}
+
+            if (element.classList.contains('avaiableMovement')) {
+                reiEmCheque.push(element)
+            }
+    })
+
+    todasAsCasasDaLinhaEsquerda.forEach(element => {
+        var atualIndex = todasAsCasasDaLinhaEsquerda.indexOf(element);
+        var anterior = elementoAnterior(atualIndex, todasAsCasasDaLinhaEsquerda);
+        element.classList.add('avaiableMovement')
+
+        if (element.classList.contains('occupiedWhite')) {
+            element.classList.add('target')
+            element.classList.add('LA')
+        }
+
+        if (element.classList.contains('occupiedBlack')) {
+            element.classList.remove('avaiableMovement')
+            element.classList.add('LA')
+        }
+
+        if (anterior != null && anterior.classList.contains('LA')) {
+            element.classList.remove('target')
+            element.classList.remove('avaiableMovement');
+            element.classList.add('NA');}
+
+        if (anterior != null && anterior.classList.contains('NA')) {
+            element.classList.remove('target')
+            element.classList.remove('avaiableMovement');
+            element.classList.add('NA');}
+
+            if (element.classList.contains('avaiableMovement')) {
+                reiEmCheque.push(element)
+            }
+    })
+
+    todasAsCasasDaLinhaDireita.forEach(element => {
+        var atualIndex = todasAsCasasDaLinhaDireita.indexOf(element);
+        var anterior = elementoAnterior(atualIndex, todasAsCasasDaLinhaDireita);
+        element.classList.add('avaiableMovement')
+
+        if (element.classList.contains('occupiedWhite')) {
+            element.classList.add('target')
+            element.classList.add('LA')
+        }
+
+        if (element.classList.contains('occupiedBlack')) {
+            element.classList.remove('avaiableMovement')
+            element.classList.add('LA')
+        }
+
+        if (anterior != null && anterior.classList.contains('LA')) {
+            element.classList.remove('target')
+            element.classList.remove('avaiableMovement');
+            element.classList.add('NA');}
+
+        if (anterior != null && anterior.classList.contains('NA')) {
+            element.classList.remove('target')
+            element.classList.remove('avaiableMovement');
+            element.classList.add('NA');}
+
+            if (element.classList.contains('avaiableMovement')) {
+                reiEmCheque.push(element)
+            }
+    })
+    return reiEmCheque;
+}
+
+function bispoPreto(parameter) {
+
+    reiEmCheque = [];
+    var posiçãoSelecionada = parameter.path[0];
+    var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
+    
+    var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
+    var todosOsFilhosPosteriores = filhosPosteriores(indexPosiçãoSelecionada)
+
+    posiçãoSelecionada.classList.add('onFocus')
+    
+        var todasAsCasasDaDDC = casasDiagonalDireitaCima(todosOsFilhosAnteriores)
+        var todasAsCasasDaDDB = casasDiagonalDireitaBaixo(todosOsFilhosPosteriores)
+        var todasAsCasasDEC = casasDiagonalEsquerdaCima(todosOsFilhosAnteriores)
+        var todasAsCasasDEB = casasDiagonalEsquerdaBaixo(todosOsFilhosPosteriores)
+    
+        todasAsCasasDaDDC.forEach(element => {
+    
+                var atualIndex = todasAsCasasDaDDC.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDaDDC);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+        });
+    
+        todasAsCasasDaDDB.forEach(element => {
+    
+                var atualIndex = todasAsCasasDaDDB.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDaDDB);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+        });
+    
+        todasAsCasasDEC.forEach(element => {
+    
+                var atualIndex = todasAsCasasDEC.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDEC);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+        });
+    
+        todasAsCasasDEB.forEach(element => {
+    
+                var atualIndex = todasAsCasasDEB.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDEB);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+        });
+        return reiEmCheque;
+}
+
+function rainhaPreta(parameter) {
+
+    reiEmCheque = [];
+    var posiçãoSelecionada = parameter.path[0];
+    var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
+    
+    var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
+    var todosOsFilhosPosteriores = filhosPosteriores(indexPosiçãoSelecionada)
+
+    posiçãoSelecionada.classList.add('onFocus')
+    
+    var todasAsCasasDaColunaAcima = casasColunaAcima(todosOsFilhosAnteriores)
+    var todasAsCasasDaColunaAbaixo = casasColunaAbaixo(todosOsFilhosPosteriores)
+    var todasAsCasasDaLinhaEsquerda = casasLinhaEsquerda(todosOsFilhosAnteriores)
+    var todasAsCasasDaLinhaDireita = casasLinhaDireita(todosOsFilhosPosteriores)
+    var todasAsCasasDaDDC = casasDiagonalDireitaCima(todosOsFilhosAnteriores)
+    var todasAsCasasDaDDB = casasDiagonalDireitaBaixo(todosOsFilhosPosteriores)
+    var todasAsCasasDEC = casasDiagonalEsquerdaCima(todosOsFilhosAnteriores)
+    var todasAsCasasDEB = casasDiagonalEsquerdaBaixo(todosOsFilhosPosteriores)
+       
+    todasAsCasasDaColunaAcima.forEach(element => {
+
+            var atualIndex = todasAsCasasDaColunaAcima.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaColunaAcima);
+            element.classList.add('avaiableMovement')
+    
+            if (element.classList.contains('occupiedWhite')) {
+                element.classList.add('target')
+                element.classList.add('LA')
+            }
+    
+            if (element.classList.contains('occupiedBlack')) {
+                element.classList.remove('avaiableMovement')
+                element.classList.add('LA')
+            }
+    
+            if (anterior != null && anterior.classList.contains('LA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (anterior != null && anterior.classList.contains('NA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (element.classList.contains('avaiableMovement')) {
+                reiEmCheque.push(element)
+            }
+    });
+
+    todasAsCasasDaColunaAbaixo.forEach(element => {
+
+            var atualIndex = todasAsCasasDaColunaAbaixo.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaColunaAbaixo);
+            element.classList.add('avaiableMovement')
+    
+            if (element.classList.contains('occupiedWhite')) {
+                element.classList.add('target')
+                element.classList.add('LA')
+            }
+    
+            if (element.classList.contains('occupiedBlack')) {
+                element.classList.remove('avaiableMovement')
+                element.classList.add('LA')
+            }
+    
+            if (anterior != null && anterior.classList.contains('LA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (anterior != null && anterior.classList.contains('NA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (element.classList.contains('avaiableMovement')) {
+                reiEmCheque.push(element)
+            }
+    });
+
+    todasAsCasasDaLinhaEsquerda.forEach(element => {
+
+            var atualIndex = todasAsCasasDaLinhaEsquerda.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaLinhaEsquerda);
+            element.classList.add('avaiableMovement')
+    
+            if (element.classList.contains('occupiedWhite')) {
+                element.classList.add('target')
+                element.classList.add('LA')
+            }
+    
+            if (element.classList.contains('occupiedBlack')) {
+                element.classList.remove('avaiableMovement')
+                element.classList.add('LA')
+            }
+    
+            if (anterior != null && anterior.classList.contains('LA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (anterior != null && anterior.classList.contains('NA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (element.classList.contains('avaiableMovement')) {
+                reiEmCheque.push(element)
+            }
+    });
+
+    todasAsCasasDaLinhaDireita.forEach(element => {
+
+            var atualIndex = todasAsCasasDaLinhaDireita.indexOf(element);
+            var anterior = elementoAnterior(atualIndex, todasAsCasasDaLinhaDireita);
+            element.classList.add('avaiableMovement')
+    
+            if (element.classList.contains('occupiedWhite')) {
+                element.classList.add('target')
+                element.classList.add('LA')
+            }
+    
+            if (element.classList.contains('occupiedBlack')) {
+                element.classList.remove('avaiableMovement')
+                element.classList.add('LA')
+            }
+    
+            if (anterior != null && anterior.classList.contains('LA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (anterior != null && anterior.classList.contains('NA')) {
+                element.classList.remove('target')
+                element.classList.remove('avaiableMovement');
+                element.classList.add('NA');}
+    
+            if (element.classList.contains('avaiableMovement')) {
+                reiEmCheque.push(element)
+            }
+    });
+
+    todasAsCasasDaDDC.forEach(element => {
+    
+                var atualIndex = todasAsCasasDaDDC.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDaDDC);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+    });
+    
+    todasAsCasasDaDDB.forEach(element => {
+    
+                var atualIndex = todasAsCasasDaDDB.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDaDDB);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+    });
+    
+    todasAsCasasDEC.forEach(element => {
+    
+                var atualIndex = todasAsCasasDEC.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDEC);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+    });
+    
+    todasAsCasasDEB.forEach(element => {
+    
+                var atualIndex = todasAsCasasDEB.indexOf(element);
+                var anterior = elementoAnterior(atualIndex, todasAsCasasDEB);
+                element.classList.add('avaiableMovement')
+        
+                if (element.classList.contains('occupiedWhite')) {
+                    element.classList.add('target')
+                    element.classList.add('LA')
+                }
+        
+                if (element.classList.contains('occupiedBlack')) {
+                    element.classList.remove('avaiableMovement')
+                    element.classList.add('LA')
+                }
+        
+                if (anterior != null && anterior.classList.contains('LA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (anterior != null && anterior.classList.contains('NA')) {
+                    element.classList.remove('target')
+                    element.classList.remove('avaiableMovement');
+                    element.classList.add('NA');}
+        
+                if (element.classList.contains('avaiableMovement')) {
+                    reiEmCheque.push(element)
+                }
+    });
+    return reiEmCheque;
+}
+
+function reiPreto(parameter) {
+
+    reiEmCheque = [];
+    var posiçãoSelecionada = parameter.path[0];
+    var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
+    
+    var todosOsFilhosAnteriores = filhosAnteriores(indexPosiçãoSelecionada)
+    var todosOsFilhosPosteriores = filhosPosteriores(indexPosiçãoSelecionada)
+
+    posiçãoSelecionada.classList.add('onFocus')
+    
+    var todasAsCasasDaColunaAcima = casasColunaAcima(todosOsFilhosAnteriores)
+    var todasAsCasasDaColunaAbaixo = casasColunaAbaixo(todosOsFilhosPosteriores)
+    var todasAsCasasDaLinhaEsquerda = casasLinhaEsquerda(todosOsFilhosAnteriores)
+    var todasAsCasasDaLinhaDireita = casasLinhaDireita(todosOsFilhosPosteriores)
+    var todasAsCasasDaDDC = casasDiagonalDireitaCima(todosOsFilhosAnteriores)
+    var todasAsCasasDaDDB = casasDiagonalDireitaBaixo(todosOsFilhosPosteriores)
+    var todasAsCasasDEC = casasDiagonalEsquerdaCima(todosOsFilhosAnteriores)
+    var todasAsCasasDEB = casasDiagonalEsquerdaBaixo(todosOsFilhosPosteriores)
+
+    if (!!todasAsCasasDaColunaAcima[0]){reiEmCheque.push(todasAsCasasDaColunaAcima[0])}
+    if (!!todasAsCasasDaColunaAbaixo[0]){reiEmCheque.push(todasAsCasasDaColunaAbaixo[0])}
+    if (!!todasAsCasasDaLinhaEsquerda[0]){reiEmCheque.push(todasAsCasasDaLinhaEsquerda[0])}
+    if (!!todasAsCasasDaLinhaDireita[0]){reiEmCheque.push(todasAsCasasDaLinhaDireita[0])}
+    if (!!todasAsCasasDaDDC[0]){reiEmCheque.push(todasAsCasasDaDDC[0])}
+    if (!!todasAsCasasDaDDB[0]){reiEmCheque.push(todasAsCasasDaDDB[0])}
+    if (!!todasAsCasasDEC[0]){reiEmCheque.push(todasAsCasasDEC[0])}
+    if (!!todasAsCasasDEB[0]){reiEmCheque.push(todasAsCasasDEB[0])}
+
+    reiEmCheque.forEach(element => {
+        element.classList.add('avaiableMovement');
+
+        if (element.classList.contains('occupiedBlack')){
+            element.classList.remove('avaiableMovement')
+        }
+
+        if (element.classList.contains('occupiedWhite')){
+            element.classList.add('target')
+        }
+    });
+    return reiEmCheque;
+}
+
+const objetoSelecionada = {
+    '♖' : (elemento) => {var $ = torreBranca(elemento); return $},
+    '♜' : (elemento) => {var $ = torrePreta(elemento); return $},
+    '♗' : (elemento) => {var $ = bispoBranco(elemento); return $},
+    '♝' : (elemento) => {var $ = bispoPreto(elemento); return $},
+    '♘' : (elemento) => {var $ = torreBranca(elemento); return $},
+    '♞' : (elemento) => {var $ = torreBranca(elemento); return $},
+    '♕' : (elemento) => {var $ = rainhaBranca(elemento); return $},
+    '♛' : (elemento) => {var $ = rainhaPreta(elemento); return $},
+    '♔' : (elemento) => {var $ = reiBranco(elemento); return $},
+    '♚' : (elemento) => {var $ = reiPreto(elemento); return $},
+    '♙' : (elemento) => {var $ = torreBranca(elemento); return $},
+    '♟' : (elemento) => {var $ = torreBranca(elemento); return $}
+}
 
 function game(elemento) {
 
-    if (elemento.path[0].innerHTML == "♖") {torreBranca(elemento)}
-    
+    var textoElemento = elemento.path[0].innerHTML
+
+    if (chessboard.classList.contains('turnoBranco') && pecasBrancas.includes(textoElemento)){
+        if (chequeRei == false) {
+            const funcaoCerta = objetoSelecionada[textoElemento]
+            var element = elemento
+            funcaoCerta(element)
+        }
+        if (chequeRei == true) {
+            console.log('reiemcheque')
+        }
+    }
+
+    if (chessboard.classList.contains('turnoPreto') && pecasPretas.includes(textoElemento)){
+        if (chequeRei == false) {
+            const funcaoCerta = objetoSelecionada[textoElemento]
+            var element = elemento
+            funcaoCerta(element)
+        }
+        if (chequeRei == true) {
+            console.log('reiemcheque')
+        }
+    }
 }
 
 tabuleiro.addEventListener('contextmenu', e => {e.preventDefault();});
@@ -421,34 +1672,25 @@ tabuleiro.addEventListener('click', () => {
 removerClassList();
 setTimeout(() => {
   tabuleiro.addEventListener('mousedown', game,  {once : true})
-}, 300);})
+}, 300);}
+)
 
 tabuleiro.addEventListener('mousedown', game,  {once : true})
 
-tabuleiro.addEventListener('mouseup', (aux) => {console.log(aux)})
+// tabuleiro.addEventListener('mouseup', (aux) => {console.log(aux)})
 
-
-
-var dragged;
-
-/* events fired on the draggable target */
 tabuleiro.addEventListener("drag", function(event) {}, false);
 
 tabuleiro.addEventListener("dragstart", function(event) {
-  // store a ref. on the dragged elem
   dragged = event.target;
-  // make it half transparent
   event.target.style.opacity = .5;
 }, false);
 
 tabuleiro.addEventListener("dragend", function(event) {
-  // reset the transparency
   event.target.style.opacity = "";
 }, false);
 
-/* events fired on the drop targets */
 tabuleiro.addEventListener("dragover", function(event) {
-  // prevent default to allow drop
   event.preventDefault();
 }, false);
 
@@ -471,20 +1713,51 @@ tabuleiro.addEventListener("dragover", function(event) {
 tabuleiro.addEventListener("drop", function(event) {
     event.preventDefault();
 
+    var $ = dragged.innerHTML
+
     if (event.target.classList.contains("avaiableMovement")) {
         event.target.style.background = "";
-        var aux = dragged.innerHTML
-        event.target.innerHTML = aux
-        if (aux == '♖' || aux == '♙' || aux == '♕' || aux == '♔' || aux == '♗' || aux == '♘'){
-            brancosFora.push(aux)
-        } else {pretosFora.push(aux)}
+
+        // if ($ == '♖' || $ == '♙' || $ == '♕' || $ == '♔' || $ == '♗' || $ == '♘'){
+        //     if (event.target.innerHTML != ""){
+        //     pretosFora.push(event.target.innerHTML)}
+        // } else {
+        //     if (event.target.innerHTML != ""){
+        //     brancosFora.push(event.target.innerHTML)}}
+        // console.log(brancosFora);
+        // console.log(pretosFora);
+        
+        event.target.innerHTML = $
+
         dragged.innerHTML = '';
-  }
-  organizarClasses()
-  var aux = torreBranca(event)
-  removerClassList()
-  setTimeout(() => {
-    tabuleiro.addEventListener('mousedown', game,  {once : true});
-  }, 300);
-  console.log(aux)
+
+        if (chessboard.classList.contains('turnoBranco')){
+            chessboard.classList.remove('turnoBranco');
+            chessboard.classList.add('turnoPreto');
+        } else {
+            chessboard.classList.remove('turnoPreto');
+            chessboard.classList.add('turnoBranco');
+        }
+    }
+
+    organizarClasses()
+
+    const funcaoCerta = objetoSelecionada[$]
+    var element = event
+    var anyChecks = funcaoCerta(element)
+
+    // anyChecks.forEach(element => {
+    //     if (element.classList.contains('reiPreto') || element.classList.contains('reiBranco')){
+    //         element.classList.add('check')
+    //         // chequeRei = true;
+    //     }
+    // });
+
+    removerClassList()
+    
+    turnos()
+
+    setTimeout(() => {
+        tabuleiro.addEventListener('mousedown', game,  {once : true});
+    }, 300);
 }, false);
