@@ -2,11 +2,13 @@ var tabuleiro = document.getElementById('chessboard');
 var posicao = Array.from(tabuleiro.children);
 var pecasBrancas = ['♖', '♘', '♗', '♔', '♕', '♙'];
 var pecasPretas = ['♜', '♞', '♝', '♛', '♚', '♟'];
-var brancosFora = [];
-var pretosFora = [];
+// var brancosFora = [];
+// var pretosFora = [];
 var reiEmCheque = [];
 var chequeRei = false;
 var dragged;
+var allBlackMoves = [];
+var allWhiteMoves = [];
 
 //linha8
 var a8 = posicao[0];
@@ -495,8 +497,8 @@ function cavaloAbaixo(parameter) {
 
 function torreBranca(parameter) {
 
-
     reiEmCheque = [];
+    reiEmCheque.push(parameter)
     var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
@@ -637,6 +639,7 @@ function torreBranca(parameter) {
 function bispoBranco(parameter) {
 
     reiEmCheque = [];
+    reiEmCheque.push(parameter)
     var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
@@ -779,6 +782,7 @@ function bispoBranco(parameter) {
 function rainhaBranca(parameter) {
 
     reiEmCheque = [];
+    reiEmCheque.push(parameter)
     var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
@@ -1048,6 +1052,7 @@ function rainhaBranca(parameter) {
 
 function reiBranco(parameter) {
     reiEmCheque = [];
+    reiEmCheque.push(parameter)
     var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
@@ -1097,6 +1102,7 @@ function reiBranco(parameter) {
 function peaoBranco(parameter) {
 
     reiEmCheque = [];
+    reiEmCheque.push(parameter)
     var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
@@ -1133,6 +1139,7 @@ function peaoBranco(parameter) {
 function cavaloBranco(parameter) {
 
     reiEmCheque = [];
+    reiEmCheque.push(parameter)
     var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
@@ -1170,6 +1177,7 @@ function cavaloBranco(parameter) {
 function torrePreta(parameter) {
 
     reiEmCheque = [];
+    reiEmCheque.push(parameter)
     var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
@@ -1310,6 +1318,7 @@ function torrePreta(parameter) {
 function bispoPreto(parameter) {
 
     reiEmCheque = [];
+    reiEmCheque.push(parameter)
     var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
@@ -1452,6 +1461,7 @@ function bispoPreto(parameter) {
 function rainhaPreta(parameter) {
 
     reiEmCheque = [];
+    reiEmCheque.push(parameter)
     var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
@@ -1722,6 +1732,7 @@ function rainhaPreta(parameter) {
 function reiPreto(parameter) {
 
     reiEmCheque = [];
+    reiEmCheque.push(parameter)
     var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
@@ -1771,6 +1782,7 @@ function reiPreto(parameter) {
 function peaoPreto(parameter) {
     
     reiEmCheque = [];
+    reiEmCheque.push(parameter)
     var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
@@ -1807,6 +1819,7 @@ function peaoPreto(parameter) {
 function cavaloPreto(parameter) {
 
     reiEmCheque = [];
+    reiEmCheque.push(parameter)
     var posiçãoSelecionada = parameter
     var indexPosiçãoSelecionada = posicao.indexOf(posiçãoSelecionada);
     
@@ -1841,19 +1854,6 @@ function cavaloPreto(parameter) {
     return reiEmCheque;
 }
 
-function reiBrancoEmCheque() {
-    var arrayVazio = [];
-    posicao.forEach(element => {
-        if (element.classList.contains('occupiedWhite')){
-            var aux = element.innerHTML;
-            const funcaoCerta = objetoSelecionada[aux]
-            var aux2 = funcaoCerta(element)
-            arrayVazio.push(aux2)
-        }
-    });
-    return arrayVazio;
-}
-
 const objetoSelecionada = {
     '♖' : (elemento) => {var $ = torreBranca(elemento); return $},
     '♜' : (elemento) => {var $ = torrePreta(elemento); return $},
@@ -1867,6 +1867,48 @@ const objetoSelecionada = {
     '♚' : (elemento) => {var $ = reiPreto(elemento); return $},
     '♙' : (elemento) => {var $ = peaoBranco(elemento); return $},
     '♟' : (elemento) => {var $ = peaoPreto(elemento); return $}
+}
+
+function whiteMoves(){
+    allWhiteMoves = []
+    var aux2 = []
+    posicao.forEach(element =>{
+        if (element.classList.contains('occupiedWhite')){
+            aux2 = []
+            var aux = element.innerHTML
+            const funcaoCerta = objetoSelecionada[aux]
+            aux2 = funcaoCerta(element)
+            removerClassList()  
+        }
+        if (aux2.length > 1) {
+            allWhiteMoves.push(aux2)
+            aux2 = []
+        }
+    })
+    console.log(allWhiteMoves)
+}
+
+function blackMoves(){
+    allBlackMoves = []
+    var aux2 = []
+    posicao.forEach(element =>{
+        if (element.classList.contains('occupiedBlack')){
+            aux2 = []
+            var aux = element.innerHTML
+            const funcaoCerta = objetoSelecionada[aux]
+            aux2 = funcaoCerta(element)
+            removerClassList()  
+        }
+        if (aux2.length > 1) {
+            allBlackMoves.push(aux2)
+            aux2 = []
+        }
+    })
+    console.log(allBlackMoves)
+}
+
+function reiBrancoEmCheque() {
+    return ('reiEmCheque')
 }
 
 function game(elemento) {
@@ -1941,6 +1983,7 @@ tabuleiro.addEventListener("dragover", function(event) {
 
 tabuleiro.addEventListener("drop", function(event) {
     event.preventDefault();
+    
 
     var $ = dragged.innerHTML
 
@@ -1970,7 +2013,6 @@ tabuleiro.addEventListener("drop", function(event) {
             chessboard.classList.add('turnoBranco');
         }
     }
-
     organizarClasses()
 
     const funcaoCerta = objetoSelecionada[$]
@@ -1983,9 +2025,14 @@ tabuleiro.addEventListener("drop", function(event) {
         }
     });
 
+    whiteMoves()
+    blackMoves()
+
     removerClassList()
     
     turnos()
+
+
 
     setTimeout(() => {
         tabuleiro.addEventListener('mousedown', game,  {once : true});
