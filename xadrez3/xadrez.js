@@ -1878,14 +1878,14 @@ function whiteMoves(){
             var aux = element.innerHTML
             const funcaoCerta = objetoSelecionada[aux]
             aux2 = funcaoCerta(element)
-            removerClassList()  
+            // removerClassList()  
         }
         if (aux2.length > 1) {
             allWhiteMoves.push(aux2)
             aux2 = []
         }
     })
-    console.log(allWhiteMoves)
+    // console.log(allWhiteMoves)
 }
 
 function blackMoves(){
@@ -1897,18 +1897,49 @@ function blackMoves(){
             var aux = element.innerHTML
             const funcaoCerta = objetoSelecionada[aux]
             aux2 = funcaoCerta(element)
-            removerClassList()  
+            // removerClassList()  
         }
         if (aux2.length > 1) {
             allBlackMoves.push(aux2)
             aux2 = []
         }
     })
-    console.log(allBlackMoves)
+    // console.log(allBlackMoves)
 }
 
 function reiBrancoEmCheque() {
-    return ('reiEmCheque')
+    
+    whiteMoves()
+
+    var n = 0;
+    var i = 0;
+    while (n < allWhiteMoves.length){
+        
+        var aux = allWhiteMoves[n][0].innerHTML
+        allWhiteMoves[n].forEach(element => {
+            if (element.classList.contains('occupiedWhite')){element.innerHTML = '';}
+            else {
+  
+                blackMoves()
+                element.innerHTML = aux
+                while (i < allBlackMoves.length) {
+                    allBlackMoves[i].forEach(element => {
+
+                        blackMoves()
+                    if (element.classList.contains('reiBranco')){
+                        console.log('aindaEmCheque')
+                    }}) 
+                    i++
+                }
+                
+            } 
+            element.innerHTML = '';
+        });
+        allWhiteMoves[n][0].innerHTML = aux
+        // console.log(aux)
+        n++
+    }
+    removerClassList()
 }
 
 function game(elemento) {
@@ -1921,8 +1952,7 @@ function game(elemento) {
             funcaoCerta(elemento.path[0])
         }
         if (chequeRei == true) {
-            var aux = reiBrancoEmCheque()
-            console.log(aux)
+            reiBrancoEmCheque()
         }
     }
 
@@ -1932,12 +1962,12 @@ function game(elemento) {
             funcaoCerta(elemento.path[0])
         }
         if (chequeRei == true) {
-            console.log('reiemcheque')
+            // reiBrancoEmCheque()
         }
     }
 }
 
-tabuleiro.addEventListener('contextmenu', e => {e.preventDefault();});
+// tabuleiro.addEventListener('contextmenu', e => {e.preventDefault();});
 
 tabuleiro.addEventListener('click', () => {
 removerClassList();
@@ -2019,14 +2049,21 @@ tabuleiro.addEventListener("drop", function(event) {
     var anyChecks = funcaoCerta(event.target)
 
     anyChecks.forEach(element => {
-        if (element.classList.contains('reiPreto') || element.classList.contains('reiBranco')){
+        if (element.classList.contains('reiPreto')){
+            console.log('chequePreto')
+            element.classList.add('check')
+            chequeRei = true;
+        }
+        if (element.classList.contains('reiBranco')){
+            
+            console.log('chequeBranco')
             element.classList.add('check')
             chequeRei = true;
         }
     });
 
-    whiteMoves()
-    blackMoves()
+
+    // blackMoves()
 
     removerClassList()
     
