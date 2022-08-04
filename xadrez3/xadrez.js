@@ -1907,38 +1907,36 @@ function blackMoves(){
     // console.log(allBlackMoves)
 }
 
+function moves() {
+    whiteMoves()
+    blackMoves()
+}
+
 function reiBrancoEmCheque() {
     
     whiteMoves()
-
     var n = 0;
-    var i = 0;
-    while (n < allWhiteMoves.length){
-        
-        var aux = allWhiteMoves[n][0].innerHTML
-        allWhiteMoves[n].forEach(element => {
-            if (element.classList.contains('occupiedWhite')){element.innerHTML = '';}
-            else {
-  
-                blackMoves()
-                element.innerHTML = aux
-                while (i < allBlackMoves.length) {
-                    allBlackMoves[i].forEach(element => {
+    // var i = 0;
 
-                        blackMoves()
-                    if (element.classList.contains('reiBranco')){
-                        console.log('aindaEmCheque')
-                    }}) 
-                    i++
-                }
-                
-            } 
-            element.innerHTML = '';
+    while (n < allWhiteMoves.length){
+        var aux = allWhiteMoves[n][0].innerHTML
+        allWhiteMoves[n].forEach(elemento => {
+            organizarClasses()
+            removerClassList()
+            if (elemento.classList.contains('occupiedWhite')){elemento.innerHTML = '';} else {
+                allWhiteMoves[n][0].innerHTML = ''
+                elemento.innerHTML = aux
+                blackMoves()
+                organizarClasses()
+                console.log(allBlackMoves)
+                allWhiteMoves[n][0].innerHTML = aux
+                elemento.innerHTML = '';
+            }
         });
-        allWhiteMoves[n][0].innerHTML = aux
-        // console.log(aux)
+        // i++
         n++
     }
+    organizarClasses()
     removerClassList()
 }
 
