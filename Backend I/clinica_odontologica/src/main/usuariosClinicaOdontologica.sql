@@ -1,0 +1,1 @@
+create table if not exists usuariosClinicaOdontologica (id int auto_increment primary key, nome varchar(255), email varchar(255) unique, senha varchar(255), nivelAcesso varchar(10));
