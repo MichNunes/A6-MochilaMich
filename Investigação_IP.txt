@@ -1,7 +1,0 @@
-IP Público - 189.35.91.34
-IP Privado - 192.168.0.10
-Máscara de Rede - 255.255.255.0
-Endereço MAC - 1C-1B-0D-92-12-10
-Classe do IP Público - B
-Classe do IP Privado - C
-Informações do MAC - GIGA-BYTE TECHNOLOGY CO.,LTD.
